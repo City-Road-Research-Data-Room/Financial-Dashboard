@@ -4,13 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>City Road Research — Financial Dashboard</title>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 <style>
 :root{
   --paper:#F4F2EC; --paper-2:#FBFAF6; --card:#FCFBF8;
@@ -20,20 +18,13 @@
   --accent:#2E5AAC; --accent-deep:#1E3E7B; --accent-soft:rgba(46,90,172,0.08);
   --cream:#EDEAE0; --cream-mute:#AFB6BF;
   --gold:#B5893D; --pos:#3F8765; --neg:#B14B3A;
-  --serif:'Fraunces',Georgia,serif;
-  --sans:'Inter',system-ui,sans-serif;
-  --mono:'IBM Plex Mono',monospace;
+  --serif:'Fraunces',Georgia,serif; --sans:'Inter',system-ui,sans-serif; --mono:'IBM Plex Mono',monospace;
 }
 *{box-sizing:border-box;}
 html,body{margin:0;padding:0;}
-body{ font-family:var(--sans); color:var(--text);
-  background:radial-gradient(120% 120% at 50% 0%,#E7E4DB 0%,#DBD8CF 100%);
-  min-height:100vh; -webkit-font-smoothing:antialiased; }
+body{ font-family:var(--sans); color:var(--text); background:radial-gradient(120% 120% at 50% 0%,#E7E4DB 0%,#DBD8CF 100%); min-height:100vh; -webkit-font-smoothing:antialiased; }
 .shell{ max-width:1380px; margin:0 auto; padding:28px 32px 60px; }
-
-.head{ background:var(--paper); border:1px solid var(--line); border-radius:6px;
-  padding:22px 28px; display:flex; justify-content:space-between; align-items:center;
-  box-shadow:0 8px 24px rgba(20,26,36,0.08); }
+.head{ background:var(--paper); border:1px solid var(--line); border-radius:6px; padding:22px 28px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 8px 24px rgba(20,26,36,0.08); }
 .brand{ display:flex; align-items:center; gap:14px; }
 .mark{ width:34px; height:34px; position:relative; }
 .mark span{ position:absolute; inset:0; border:2px solid var(--ink); transform:rotate(45deg); border-radius:4px; }
@@ -47,49 +38,36 @@ body{ font-family:var(--sans); color:var(--text);
 .tag-pill.btn{ cursor:pointer; transition:all .15s; }
 .tag-pill.btn:hover{ color:var(--ink); border-color:var(--ink); }
 .tag-pill i{ color:var(--accent); margin-right:6px; }
-
-.controls{ margin-top:18px; background:var(--paper-2); border:1px solid var(--line); border-radius:6px;
-  padding:18px 24px;
-  display:grid; grid-template-columns:auto 1fr 1fr 1fr auto; gap:24px; align-items:center; }
+.controls{ margin-top:18px; background:var(--paper-2); border:1px solid var(--line); border-radius:6px; padding:18px 24px; display:grid; grid-template-columns:auto 1fr 1fr 1fr auto; gap:24px; align-items:center; }
 .ctrl-label{ display:flex; flex-direction:column; gap:6px; }
 .ctrl-name{ font-family:var(--mono); font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); }
 .ctrl-val{ font-family:var(--mono); font-size:0.95rem; font-weight:600; color:var(--ink); }
 .scenario-title{ font-family:var(--serif); font-weight:600; font-size:1.1rem; color:var(--ink); padding-right:8px; border-right:1px solid var(--line); min-width:160px;}
 .scenario-sub{ font-family:var(--mono); font-size:0.68rem; letter-spacing:0.16em; color:var(--faint); text-transform:uppercase; margin-top:3px; }
-
 input[type=range]{ -webkit-appearance:none; width:100%; height:3px; background:var(--line); border-radius:3px; outline:none; margin:6px 0 0; }
 input[type=range]::-webkit-slider-thumb{ -webkit-appearance:none; width:14px; height:14px; border-radius:50%; background:var(--accent); cursor:pointer; box-shadow:0 0 0 4px rgba(46,90,172,0.12); }
 input[type=range]::-moz-range-thumb{ width:14px; height:14px; border:none; border-radius:50%; background:var(--accent); cursor:pointer; }
-
 .preset-btns{ display:flex; gap:6px; }
 .preset{ font-family:var(--mono); font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; padding:7px 11px; background:var(--paper); border:1px solid var(--line); color:var(--muted); border-radius:4px; cursor:pointer; transition:all .15s; }
 .preset:hover{ color:var(--ink); border-color:var(--ink); }
 .preset.active{ background:var(--ink); color:var(--cream); border-color:var(--ink); }
-
-.tabs{ margin-top:18px; display:flex; gap:0; background:var(--paper);
-  border:1px solid var(--line); border-radius:6px; padding:4px; overflow:hidden; }
-.tab{ flex:1; padding:12px 16px; background:none; border:none; cursor:pointer;
-  font-family:var(--sans); font-weight:500; font-size:0.84rem; color:var(--muted);
-  border-radius:4px; transition:all .18s; display:flex; align-items:center; justify-content:center; gap:8px; }
+.tabs{ margin-top:18px; display:flex; gap:0; background:var(--paper); border:1px solid var(--line); border-radius:6px; padding:4px; overflow:hidden; }
+.tab{ flex:1; padding:12px 16px; background:none; border:none; cursor:pointer; font-family:var(--sans); font-weight:500; font-size:0.84rem; color:var(--muted); border-radius:4px; transition:all .18s; display:flex; align-items:center; justify-content:center; gap:8px; }
 .tab:hover{ color:var(--ink); background:var(--paper-2); }
 .tab.active{ background:var(--ink); color:var(--cream); }
 .tab .tnum{ font-family:var(--mono); font-size:0.66rem; opacity:0.6; }
-
 .section{ display:none; margin-top:18px; animation:fade .25s ease; }
 .section.active{ display:block; }
 @keyframes fade { from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;} }
-
 .grid{ display:grid; gap:14px; }
 .g2{ grid-template-columns:1fr 1fr; }
 .g3{ grid-template-columns:repeat(3,1fr); }
 .g4{ grid-template-columns:repeat(4,1fr); }
-
 .panel{ background:var(--paper); border:1px solid var(--line); border-radius:6px; padding:22px 24px; }
 .panel-head{ display:flex; justify-content:space-between; align-items:baseline; border-bottom:1px solid var(--line); padding-bottom:14px; margin-bottom:18px; }
 .panel-title{ font-family:var(--mono); font-size:0.72rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--accent); }
 .panel-rn{ font-family:var(--mono); font-size:0.66rem; letter-spacing:0.14em; color:var(--faint); }
 .h-bar{ width:14px; height:1px; background:var(--accent); display:inline-block; margin-right:8px; vertical-align:middle; }
-
 .kpi{ background:var(--card); border:1px solid var(--line); border-radius:5px; padding:18px 20px; display:flex; flex-direction:column; gap:6px; }
 .kpi .lbl{ font-family:var(--mono); font-size:0.66rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); }
 .kpi .val{ font-family:var(--serif); font-weight:600; font-size:1.85rem; color:var(--ink); line-height:1; letter-spacing:-0.01em; }
@@ -98,19 +76,15 @@ input[type=range]::-moz-range-thumb{ width:14px; height:14px; border:none; borde
 .kpi.accent .val{ color:var(--accent); }
 .kpi.gold .val{ color:var(--gold); }
 .kpi.neg .val{ color:var(--neg); }
-
 .kv{ display:flex; flex-direction:column; }
 .kv-row{ display:flex; justify-content:space-between; align-items:baseline; padding:11px 0; border-bottom:1px solid var(--line-soft); }
 .kv-row:last-child{ border-bottom:none; }
 .kv-row .k{ font-size:0.9rem; color:var(--text); }
 .kv-row .v{ font-family:var(--mono); font-size:0.86rem; color:var(--ink); font-weight:500; }
-.kv-row .v.pos{ color:var(--pos); }
-.kv-row .v.neg{ color:var(--neg); }
-.kv-row .v.accent{ color:var(--accent); }
+.kv-row .v.pos{ color:var(--pos); } .kv-row .v.neg{ color:var(--neg); } .kv-row .v.accent{ color:var(--accent); }
 .kv-row.total{ border-top:1.5px solid var(--ink); margin-top:6px; padding-top:14px; }
 .kv-row.total .k{ font-family:var(--serif); font-weight:600; color:var(--ink); font-size:1rem; }
 .kv-row.total .v{ font-size:1.1rem; color:var(--accent); font-weight:600; }
-
 table{ width:100%; border-collapse:collapse; }
 thead th{ font-family:var(--mono); font-size:0.66rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); text-align:left; padding:10px 12px; border-bottom:1.5px solid var(--ink); }
 thead th.r, tbody td.r{ text-align:right; }
@@ -118,83 +92,62 @@ tbody td{ padding:11px 12px; border-bottom:1px solid var(--line-soft); font-size
 tbody tr:last-child td{ border-bottom:none; }
 tbody td.lbl{ font-family:var(--serif); font-weight:500; font-size:0.96rem; color:var(--ink); }
 tbody td.num{ font-family:var(--mono); font-size:0.85rem; color:var(--ink); white-space:nowrap; }
-tbody td.num.pos{ color:var(--pos); }
-tbody td.num.neg{ color:var(--neg); }
-tbody td.num.muted{ color:var(--muted); }
+tbody td.num.pos{ color:var(--pos); } tbody td.num.neg{ color:var(--neg); } tbody td.num.muted{ color:var(--muted); }
 tbody tr.tot td{ border-top:1.5px solid var(--ink); border-bottom:none; padding-top:14px; font-weight:600; color:var(--ink); background:var(--accent-soft); }
 tbody tr.sub td{ border-top:1px solid var(--line); padding-top:13px; }
-
 .risk-row{ display:flex; gap:14px; align-items:flex-start; padding:14px 0; border-bottom:1px solid var(--line-soft); }
 .risk-row:last-child{ border-bottom:none; }
 .risk-row i{ width:34px; height:34px; flex:0 0 auto; display:flex; align-items:center; justify-content:center; background:var(--accent-soft); color:var(--accent); border-radius:5px; font-size:0.95rem; }
 .risk-body h4{ font-family:var(--serif); font-weight:600; font-size:0.98rem; margin:0 0 3px; color:var(--ink); }
 .risk-body p{ font-size:0.85rem; color:var(--muted); margin:0; line-height:1.45; }
 .risk-body .trig{ font-family:var(--mono); font-size:0.78rem; color:var(--ink); margin-top:4px; }
-
 .foot-note{ font-family:var(--mono); font-size:0.7rem; letter-spacing:0.04em; color:var(--faint); margin-top:14px; line-height:1.5; }
-
 .chart-wrap{ position:relative; width:100%; height:280px; }
 .chart-wrap.tall{ height:340px; }
-
 .spark{ background:var(--paper-2); border:1px solid var(--line); border-radius:5px; padding:14px 16px; }
 .spark .lbl{ font-family:var(--mono); font-size:0.66rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); margin-bottom:6px; }
 .spark .val{ font-family:var(--serif); font-weight:600; font-size:1.3rem; color:var(--ink); line-height:1; }
 .spark canvas{ margin-top:8px; height:42px !important; }
-
-.callout-ink{ background:var(--ink); color:var(--cream); border-radius:6px;
-  padding:18px 22px; display:flex; gap:14px; align-items:flex-start; }
+.callout-ink{ background:var(--ink); color:var(--cream); border-radius:6px; padding:18px 22px; display:flex; gap:14px; align-items:flex-start; }
 .callout-ink i{ color:#9CB6E6; font-size:1.2rem; margin-top:3px; flex:0 0 auto; }
 .callout-ink h4{ font-family:var(--serif); font-weight:600; font-size:1rem; margin:0 0 4px; color:var(--cream); }
 .callout-ink p{ margin:0; font-size:0.86rem; color:var(--cream-mute); line-height:1.5; }
-
-/* scenario-conditional reveal */
-[data-show-scenario]{ display:none; }
-[data-show-scenario].is-active{ display:block; }
-
+[data-show-scenario]{ display:none; } [data-show-scenario].is-active{ display:block; }
 .empty-state{ display:flex; flex-direction:column; align-items:center; justify-content:center; padding:32px 24px; text-align:center; color:var(--muted); }
 .empty-state i{ font-size:1.4rem; color:var(--accent); margin-bottom:8px; }
 .empty-state h4{ font-family:var(--serif); font-weight:600; font-size:1rem; color:var(--ink); margin:6px 0 4px; }
 .empty-state p{ margin:0; font-size:0.85rem; max-width:340px; line-height:1.5; }
-
-/* refresh modal */
 .modal-bg{ position:fixed; inset:0; background:rgba(15,20,28,0.55); display:none; align-items:center; justify-content:center; z-index:100; padding:24px;}
 .modal-bg.open{ display:flex; }
-.modal{ background:var(--paper); border:1px solid var(--line); border-radius:8px; max-width:680px; width:100%; max-height:90vh; overflow:auto; padding:28px 32px;}
+.modal{ background:var(--paper); border:1px solid var(--line); border-radius:8px; max-width:720px; width:100%; max-height:92vh; overflow:auto; padding:28px 32px;}
 .modal h3{ font-family:var(--serif); font-weight:600; font-size:1.4rem; margin:0 0 6px; color:var(--ink);}
 .modal h3 em{ font-style:normal; color:var(--accent); }
 .modal .sub{ font-family:var(--mono); font-size:0.7rem; letter-spacing:0.14em; color:var(--muted); text-transform:uppercase; margin-bottom:20px;}
-.modal ol{ padding-left:20px; margin:0 0 18px; }
-.modal ol li{ margin-bottom:10px; line-height:1.55; font-size:0.94rem; color:var(--text);}
+.modal p{ line-height:1.55; font-size:0.94rem; color:var(--text);}
 .modal code{ font-family:var(--mono); font-size:0.82rem; background:var(--accent-soft); color:var(--accent); padding:2px 6px; border-radius:3px;}
-.modal .csv-input{ width:100%; min-height:120px; font-family:var(--mono); font-size:0.78rem; padding:12px; border:1px solid var(--line); background:var(--paper-2); border-radius:5px; color:var(--text); resize:vertical;}
+.modal .csv-input{ width:100%; min-height:150px; font-family:var(--mono); font-size:0.72rem; padding:12px; border:1px solid var(--line); background:var(--paper-2); border-radius:5px; color:var(--text); resize:vertical; white-space:pre; overflow-x:auto;}
 .modal-actions{ display:flex; gap:10px; justify-content:flex-end; margin-top:18px; }
 .modal-btn{ font-family:var(--sans); font-weight:500; font-size:0.86rem; padding:9px 18px; border-radius:5px; cursor:pointer; border:1px solid var(--line); background:var(--paper); color:var(--muted); transition:all .15s;}
 .modal-btn:hover{ color:var(--ink); border-color:var(--ink); }
 .modal-btn.primary{ background:var(--ink); color:var(--cream); border-color:var(--ink); }
 .modal-btn.primary:hover{ background:var(--accent); border-color:var(--accent); }
 .modal-status{ font-family:var(--mono); font-size:0.78rem; margin-top:10px; min-height:20px; }
-.modal-status.ok{ color:var(--pos); }
-.modal-status.err{ color:var(--neg); }
+.modal-status.ok{ color:var(--pos); } .modal-status.err{ color:var(--neg); }
 .scenario-picker{ display:flex; gap:8px; margin-bottom:16px; }
 .scenario-picker label{ flex:1; padding:10px 14px; border:1px solid var(--line); border-radius:5px; cursor:pointer; font-size:0.86rem; transition:all .15s; }
 .scenario-picker label.checked{ border-color:var(--ink); background:var(--accent-soft); color:var(--ink); font-weight:500; }
 .scenario-picker input[type=radio]{ display:none; }
-
-@media (max-width:1100px){
-  .controls{ grid-template-columns:1fr 1fr; gap:16px; }
-  .g4{ grid-template-columns:1fr 1fr; }
-  .g3{ grid-template-columns:1fr; }
-}
-@media (max-width:680px){
-  .shell{ padding:16px; }
-  .g2{ grid-template-columns:1fr; }
-  .g4{ grid-template-columns:1fr; }
-  .head-meta{ display:none; }
-}
+.adv-toggle{ font-family:var(--mono); font-size:0.74rem; letter-spacing:0.06em; color:var(--accent); cursor:pointer; background:none; border:none; padding:8px 0; text-decoration:underline; }
+.adv-panel{ display:none; margin-top:12px; padding:16px; background:var(--paper-2); border:1px solid var(--line); border-radius:6px; }
+.adv-panel.open{ display:block; }
+.adv-grid{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px 16px; }
+.adv-grid label{ display:flex; flex-direction:column; gap:3px; font-family:var(--mono); font-size:0.64rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted);}
+.adv-grid input{ font-family:var(--mono); font-size:0.8rem; padding:6px 8px; border:1px solid var(--line); border-radius:4px; background:var(--paper); color:var(--ink);}
+@media (max-width:1100px){ .controls{ grid-template-columns:1fr 1fr; gap:16px; } .g4{ grid-template-columns:1fr 1fr; } .g3{ grid-template-columns:1fr; } .adv-grid{ grid-template-columns:1fr 1fr;} }
+@media (max-width:680px){ .shell{ padding:16px; } .g2{ grid-template-columns:1fr; } .g4{ grid-template-columns:1fr; } .head-meta{ display:none; } }
 </style>
 </head>
 <body>
-
 <div class="shell">
 
   <div class="head">
@@ -206,7 +159,7 @@ tbody tr.sub td{ border-top:1px solid var(--line); padding-top:13px; }
       </div>
     </div>
     <div class="head-meta">
-      <span class="tag-pill"><i class="fa-solid fa-database"></i>Model v3.0 · Oct '26 → Sep '29</span>
+      <span class="tag-pill"><i class="fa-solid fa-database"></i>Oct '26 → Sep '29 · 36 mo</span>
       <span class="tag-pill btn" onclick="openRefresh()"><i class="fa-solid fa-arrows-rotate"></i>Refresh from model</span>
       <span class="tag-pill"><i class="fa-solid fa-lock"></i>Private &amp; Confidential</span>
     </div>
@@ -215,7 +168,7 @@ tbody tr.sub td{ border-top:1px solid var(--line); padding-top:13px; }
   <div class="controls">
     <div>
       <div class="scenario-title" id="scenarioName">Target case</div>
-      <div class="scenario-sub" id="scenarioSub">Tier 1 &amp; 2 · market making + alpha strategies</div>
+      <div class="scenario-sub" id="scenarioSub">Spread trading + EV model alpha</div>
     </div>
     <div class="ctrl-label">
       <span class="ctrl-name">Revenue haircut</span>
@@ -249,10 +202,10 @@ tbody tr.sub td{ border-top:1px solid var(--line); padding-top:13px; }
   <!-- OVERVIEW -->
   <section class="section active" id="overview">
     <div class="grid g4">
-      <div class="kpi"><span class="lbl">3-Year revenue</span><span class="val" id="kpiRev">$27.06M</span><span class="delta" id="kpiRevD">Modelled · 36 months</span></div>
-      <div class="kpi accent"><span class="lbl">3-Year NOI</span><span class="val" id="kpiNoi">$4.74M</span><span class="delta" id="kpiNoiD">17.5% net margin · modelled</span></div>
-      <div class="kpi gold"><span class="lbl">Cumulative cash · M36</span><span class="val" id="kpiCash">$5.74M</span><span class="delta" id="kpiCashD">Off $1.00M raise · modelled</span></div>
-      <div class="kpi"><span class="lbl">Payback period</span><span class="val" id="kpiPay">Aug '28</span><span class="delta">Cum cash > raise · modelled</span></div>
+      <div class="kpi"><span class="lbl">3-Year revenue</span><span class="val" id="kpiRev">—</span><span class="delta" id="kpiRevD">Modelled · 36 months</span></div>
+      <div class="kpi accent"><span class="lbl">3-Year NOI</span><span class="val" id="kpiNoi">—</span><span class="delta" id="kpiNoiD">net margin · modelled</span></div>
+      <div class="kpi gold"><span class="lbl">Cumulative cash · M36</span><span class="val" id="kpiCash">—</span><span class="delta" id="kpiCashD">incl. raise · modelled</span></div>
+      <div class="kpi"><span class="lbl">Cash generated · 3Y</span><span class="val" id="kpiGen">—</span><span class="delta">NOI ex-raise · modelled</span></div>
     </div>
 
     <div class="grid g2" style="margin-top:14px;">
@@ -264,11 +217,10 @@ tbody tr.sub td{ border-top:1px solid var(--line); padding-top:13px; }
         <table id="annualTbl">
           <thead><tr><th>Line</th><th class="r">FY1</th><th class="r">FY2</th><th class="r">FY3</th><th class="r">Total</th></tr></thead>
           <tbody>
-            <tr><td class="lbl">Market making</td><td class="num r" data-mm></td><td class="num r" data-mm></td><td class="num r" data-mm></td><td class="num r" data-mm></td></tr>
-            <tr><td class="lbl">Volume rebates</td><td class="num r" data-vr></td><td class="num r" data-vr></td><td class="num r" data-vr></td><td class="num r" data-vr></td></tr>
-            <tr><td class="lbl">Price-lag arb</td><td class="num r" data-pl></td><td class="num r" data-pl></td><td class="num r" data-pl></td><td class="num r" data-pl></td></tr>
-            <tr><td class="lbl">Sports model alpha</td><td class="num r" data-sm></td><td class="num r" data-sm></td><td class="num r" data-sm></td><td class="num r" data-sm></td></tr>
-            <tr><td class="lbl">Computer vision</td><td class="num r" data-cv></td><td class="num r" data-cv></td><td class="num r" data-cv></td><td class="num r" data-cv></td></tr>
+            <tr><td class="lbl">Spread trading</td><td class="num r" data-spread></td><td class="num r" data-spread></td><td class="num r" data-spread></td><td class="num r" data-spread></td></tr>
+            <tr data-tier2><td class="lbl">Price-lag arb</td><td class="num r" data-pl></td><td class="num r" data-pl></td><td class="num r" data-pl></td><td class="num r" data-pl></td></tr>
+            <tr data-tier2><td class="lbl">Sports model alpha</td><td class="num r" data-sm></td><td class="num r" data-sm></td><td class="num r" data-sm></td><td class="num r" data-sm></td></tr>
+            <tr data-tier2><td class="lbl">Computer vision</td><td class="num r" data-cv></td><td class="num r" data-cv></td><td class="num r" data-cv></td><td class="num r" data-cv></td></tr>
             <tr class="sub"><td class="lbl">Total revenue</td><td class="num r" data-tr></td><td class="num r" data-tr></td><td class="num r" data-tr></td><td class="num r" data-tr></td></tr>
             <tr><td class="lbl" style="color:var(--muted); font-family:var(--sans); font-weight:400;">Trading costs</td><td class="num r muted" data-tc></td><td class="num r muted" data-tc></td><td class="num r muted" data-tc></td><td class="num r muted" data-tc></td></tr>
             <tr><td class="lbl" style="color:var(--muted); font-family:var(--sans); font-weight:400;">Admin / opex</td><td class="num r muted" data-ax></td><td class="num r muted" data-ax></td><td class="num r muted" data-ax></td><td class="num r muted" data-ax></td></tr>
@@ -276,7 +228,7 @@ tbody tr.sub td{ border-top:1px solid var(--line); padding-top:13px; }
             <tr><td class="lbl" style="font-family:var(--sans); font-weight:500; color:var(--muted);">Net margin</td><td class="num r muted" data-nm></td><td class="num r muted" data-nm></td><td class="num r muted" data-nm></td><td class="num r muted" data-nm></td></tr>
           </tbody>
         </table>
-        <p class="foot-note">Source: Financial Model. Figures modelled / illustrative — not a forecast or guarantee of returns.</p>
+        <p class="foot-note" id="annualNote">Source: Financial Model. Figures modelled / illustrative — not a forecast or guarantee of returns.</p>
       </div>
 
       <div class="panel">
@@ -289,10 +241,10 @@ tbody tr.sub td{ border-top:1px solid var(--line); padding-top:13px; }
     </div>
 
     <div class="grid g4" style="margin-top:14px;">
-      <div class="spark"><div class="lbl">Latest monthly NOI</div><div class="val" id="spkLatest">$352k</div><canvas id="spk1"></canvas></div>
-      <div class="spark"><div class="lbl">Average monthly NOI</div><div class="val" id="spkAvg">$132k</div><canvas id="spk2"></canvas></div>
-      <div class="spark"><div class="lbl">Max cumulative drawdown</div><div class="val" id="spkDD">−$323k</div><canvas id="spk3"></canvas></div>
-      <div class="spark"><div class="lbl">Annualised run-rate</div><div class="val" id="spkRR">$4.23M</div><canvas id="spk4"></canvas></div>
+      <div class="spark"><div class="lbl">Latest monthly NOI</div><div class="val" id="spkLatest">—</div><canvas id="spk1"></canvas></div>
+      <div class="spark"><div class="lbl">Average monthly NOI</div><div class="val" id="spkAvg">—</div><canvas id="spk2"></canvas></div>
+      <div class="spark"><div class="lbl">Max cumulative drawdown</div><div class="val" id="spkDD">—</div><canvas id="spk3"></canvas></div>
+      <div class="spark"><div class="lbl">Annualised run-rate</div><div class="val" id="spkRR">—</div><canvas id="spk4"></canvas></div>
     </div>
   </section>
 
@@ -300,37 +252,28 @@ tbody tr.sub td{ border-top:1px solid var(--line); padding-top:13px; }
   <section class="section" id="mechanics">
     <div class="grid g2">
       <div class="panel">
-        <div class="panel-head">
-          <span class="panel-title"><span class="h-bar"></span>Edge bridge · per trade</span>
-          <span class="panel-rn">bps · target</span>
-        </div>
+        <div class="panel-head"><span class="panel-title"><span class="h-bar"></span>Edge bridge · per trade</span><span class="panel-rn">bps · target</span></div>
         <div class="kv">
-          <div class="kv-row"><span class="k">Gross spread capture</span><span class="v pos">+10.0 bps</span></div>
-          <div class="kv-row"><span class="k">Fees / execution cost</span><span class="v neg">−0.4 bps</span></div>
-          <div class="kv-row"><span class="k">Adverse selection</span><span class="v neg" id="advBps">−8.0 bps</span></div>
-          <div class="kv-row total"><span class="k">Net realised edge</span><span class="v accent" id="netBps">+1.6 bps</span></div>
+          <div class="kv-row"><span class="k">Gross spread capture</span><span class="v pos">+50.0 bps</span></div>
+          <div class="kv-row"><span class="k">Fees / execution cost</span><span class="v neg">−5.0 bps</span></div>
+          <div class="kv-row"><span class="k">Adverse selection</span><span class="v neg" id="advBps">−34.0 bps</span></div>
+          <div class="kv-row total"><span class="k">Net realised edge</span><span class="v accent" id="netBps">+11.0 bps</span></div>
         </div>
         <div class="callout-ink" style="margin-top:18px;">
           <i class="fa-solid fa-arrow-trend-up"></i>
-          <div>
-            <h4>Rebate transition with scale</h4>
-            <p>As monthly volume tiers up, fee execution flips to maker rebates, which becomes accretive to net edge — modelled, not assumed certain.</p>
-          </div>
+          <div><h4>Net edge is the thin margin</h4><p>Gross spread of 50 bps nets to ~11 bps after fees and adverse selection. The model relies on a small, repeatable edge across high volume — not a large per-trade margin.</p></div>
         </div>
       </div>
 
       <div class="panel">
-        <div class="panel-head">
-          <span class="panel-title"><span class="h-bar"></span>Capacity &amp; volume framework</span>
-          <span class="panel-rn">36-month ramp</span>
-        </div>
+        <div class="panel-head"><span class="panel-title"><span class="h-bar"></span>Capacity &amp; volume framework</span><span class="panel-rn">36-month ramp</span></div>
         <div class="kv">
-          <div class="kv-row"><span class="k">Daily volume ramp</span><span class="v" id="capVol">$3.75M → $31.25M</span></div>
-          <div class="kv-row"><span class="k">Daily capital turnover</span><span class="v">10× → 50×</span></div>
-          <div class="kv-row"><span class="k">Target market capacity</span><span class="v">$5.00B / day</span></div>
+          <div class="kv-row"><span class="k">Daily volume ramp</span><span class="v" id="capVol">$3.75M → $10.0M</span></div>
+          <div class="kv-row"><span class="k">Daily capital turnover</span><span class="v" id="capTurn">15× → 13×</span></div>
+          <div class="kv-row"><span class="k">Target market capacity</span><span class="v">$750M / month</span></div>
           <div class="kv-row"><span class="k">Capacity utilisation cap</span><span class="v accent">~0.50%</span></div>
-          <div class="kv-row"><span class="k">Net edge applied</span><span class="v" id="netEdgePct">1.6 bps (0.016%)</span></div>
-          <div class="kv-row"><span class="k">M36 modelled monthly volume</span><span class="v" id="capM36">$938M</span></div>
+          <div class="kv-row"><span class="k">Net edge applied</span><span class="v" id="netEdgePct">11.0 bps (0.11%)</span></div>
+          <div class="kv-row"><span class="k">M36 modelled monthly volume</span><span class="v" id="capM36">$300M</span></div>
         </div>
         <p class="foot-note">Capacity framing emphasises reliance on a small slice of fragmented volume, not market share.</p>
       </div>
@@ -338,100 +281,82 @@ tbody tr.sub td{ border-top:1px solid var(--line); padding-top:13px; }
 
     <div class="grid g2" style="margin-top:14px;">
       <div class="panel">
-        <div class="panel-head">
-          <span class="panel-title"><span class="h-bar"></span>Risk limits &amp; kill switches</span>
-          <span class="panel-rn">Pre-trade · in-flight · EOD</span>
-        </div>
-        <div class="risk-row"><i class="fa-solid fa-coins"></i><div class="risk-body"><h4>Max inventory usage</h4><p>Capital deployed against open positions.</p><div class="trig">80% of trading capital</div></div></div>
-        <div class="risk-row"><i class="fa-solid fa-scale-balanced"></i><div class="risk-body"><h4>Max directional exposure</h4><p>Unhedged delta hard cap, per book.</p><div class="trig">$25,000</div></div></div>
-        <div class="risk-row"><i class="fa-solid fa-circle-stop"></i><div class="risk-body"><h4>Daily loss kill-switch</h4><p>Halts quoting and unwinds inventory on breach.</p><div class="trig">−$10,000</div></div></div>
-        <div class="risk-row"><i class="fa-solid fa-network-wired"></i><div class="risk-body"><h4>Latency liquidity-pull</h4><p>Withdraw quoting on degraded venue health.</p><div class="trig">&gt; 200 ms API roundtrip</div></div></div>
-        <div class="risk-row"><i class="fa-solid fa-scale-unbalanced"></i><div class="risk-body"><h4>Oracle divergence trigger</h4><p>Pull quotes when cross-venue / reference disagree.</p><div class="trig">&gt; 2% divergence vs reference</div></div></div>
+        <div class="panel-head"><span class="panel-title"><span class="h-bar"></span>Risk limits &amp; kill switches</span><span class="panel-rn">Pre-trade · in-flight · EOD</span></div>
+        <div class="risk-row"><i class="fa-solid fa-crosshairs"></i><div class="risk-body"><h4>Position</h4><p>Position limits per market and in aggregate.</p><div class="trig">Per-market &amp; aggregate caps</div></div></div>
+        <div class="risk-row"><i class="fa-solid fa-coins"></i><div class="risk-body"><h4>Inventory</h4><p>Inventory limits with automatic rebalancing.</p><div class="trig">≤ 80% of trading capital</div></div></div>
+        <div class="risk-row"><i class="fa-solid fa-circle-stop"></i><div class="risk-body"><h4>Kill</h4><p>Exchange- and system-side kill switches.</p><div class="trig">Daily loss −$10,000</div></div></div>
+        <div class="risk-row"><i class="fa-solid fa-network-wired"></i><div class="risk-body"><h4>Liquidity pull</h4><p>Withdraw quoting on volatility / latency triggers.</p><div class="trig">&gt; 200 ms or 2% oracle divergence</div></div></div>
+        <div class="risk-row"><i class="fa-solid fa-arrow-trend-down"></i><div class="risk-body"><h4>Drawdown</h4><p>Daily and cumulative max-drawdown limits.</p><div class="trig">Directional cap $25,000</div></div></div>
+        <div class="risk-row"><i class="fa-solid fa-layer-group"></i><div class="risk-body"><h4>Capital cap</h4><p>Strategy-level capital caps.</p><div class="trig">Per-strategy allocation</div></div></div>
+        <div class="risk-row"><i class="fa-solid fa-building-columns"></i><div class="risk-body"><h4>Venue</h4><p>Venue-level exposure caps.</p><div class="trig">Per-venue limit</div></div></div>
+        <div class="risk-row"><i class="fa-solid fa-file-signature"></i><div class="risk-body"><h4>Settlement</h4><p>Settlement, counterparty &amp; smart-contract checks.</p><div class="trig">Pre-settlement validation</div></div></div>
+        <div class="risk-row"><i class="fa-solid fa-sitemap"></i><div class="risk-body"><h4>Segregation</h4><p>Operating capital separated from trading capital.</p><div class="trig">Ring-fenced</div></div></div>
+        <div class="risk-row"><i class="fa-solid fa-scale-balanced"></i><div class="risk-body"><h4>Reconciliation</h4><p>Independent reconciliation across books and venues.</p><div class="trig">Independent &amp; continuous</div></div></div>
       </div>
 
       <div class="panel">
-        <!-- TARGET: Tier 2 capital & opportunity caps -->
         <div data-show-scenario="target" class="is-active">
-          <div class="panel-head">
-            <span class="panel-title"><span class="h-bar"></span>Tier 2 capital &amp; opportunity caps</span>
-            <span class="panel-rn">FY1 → FY3 · modelled</span>
-          </div>
+          <div class="panel-head"><span class="panel-title"><span class="h-bar"></span>EV model streams · capital &amp; opportunity caps</span><span class="panel-rn">3Y · modelled</span></div>
           <table>
-            <thead><tr><th>Tier 2 stream</th><th class="r">Net edge %</th><th class="r">Capital / opp</th><th class="r">3Y PnL</th></tr></thead>
+            <thead><tr><th>Stream</th><th class="r">Net edge %</th><th class="r">Capital / opp</th><th class="r">3Y PnL</th></tr></thead>
             <tbody>
-              <tr><td class="lbl">Price-lag arb</td><td class="num r">2.0% → 0.6%</td><td class="num r">$25k → $75k</td><td class="num r">$0.66M</td></tr>
-              <tr><td class="lbl">Sports model alpha</td><td class="num r">0.75%</td><td class="num r">$25k → $100k</td><td class="num r">$1.84M</td></tr>
-              <tr><td class="lbl">Computer vision</td><td class="num r">1.50%</td><td class="num r">$75k → $250k</td><td class="num r">$3.17M</td></tr>
-              <tr class="tot"><td class="lbl">Total Tier 2 (3Y)</td><td class="num r muted">capped</td><td class="num r muted">capped</td><td class="num r">$5.68M</td></tr>
+              <tr><td class="lbl">Price-lag arb</td><td class="num r">2.0% → 0.6%</td><td class="num r">$25k → $75k</td><td class="num r">$0.55M</td></tr>
+              <tr><td class="lbl">Sports model alpha</td><td class="num r">0.75%</td><td class="num r">$25k → $100k</td><td class="num r">$1.18M</td></tr>
+              <tr><td class="lbl">Computer vision</td><td class="num r">1.50%</td><td class="num r">$75k → $250k</td><td class="num r">$1.94M</td></tr>
+              <tr class="tot"><td class="lbl">Total EV streams (3Y)</td><td class="num r muted">capped</td><td class="num r muted">capped</td><td class="num r">$3.67M</td></tr>
             </tbody>
           </table>
-          <p class="foot-note">Price-lag arb net edge decays (2.0% → 0.6%) to reflect competition and rising market efficiency. Tier 2 volume is capped by capital and opportunity count, not assumed to scale indefinitely.</p>
+          <p class="foot-note">Price-lag arb net edge decays (2.0% → 0.6%) for competition and rising efficiency. Volume capped by capital and opportunity count, not assumed to scale indefinitely.</p>
         </div>
-
-        <!-- BASE: Tier 2 not active -->
         <div data-show-scenario="base">
-          <div class="panel-head">
-            <span class="panel-title"><span class="h-bar"></span>Tier 2 strategies</span>
-            <span class="panel-rn">Not active in this scenario</span>
-          </div>
+          <div class="panel-head"><span class="panel-title"><span class="h-bar"></span>EV model streams</span><span class="panel-rn">Not active in this scenario</span></div>
           <div class="empty-state">
             <i class="fa-solid fa-circle-minus"></i>
-            <h4>Single-strategy market making</h4>
-            <p>The base case isolates market-making cashflow only (Tier 1). Price-lag arb, sports model alpha and computer-vision streams are excluded — modelled at $0 across the 36-month window.</p>
+            <h4>Evergreen market-making only</h4>
+            <p>The base case isolates the spread-trading / market-making engine. Price-lag arb, sports model alpha and computer-vision streams are excluded — modelled at $0 across the 36-month window.</p>
           </div>
         </div>
       </div>
     </div>
 
     <div class="panel" style="margin-top:14px;">
-      <div class="panel-head">
-        <span class="panel-title"><span class="h-bar"></span>Performance &amp; drawdown</span>
-        <span class="panel-rn">Computed from active model · responds to scenario</span>
-      </div>
+      <div class="panel-head"><span class="panel-title"><span class="h-bar"></span>Performance &amp; drawdown</span><span class="panel-rn">Computed from active model · responds to scenario</span></div>
       <div class="grid g3">
         <div class="kv">
-          <div class="kv-row"><span class="k">Trading capital deployed</span><span class="v" id="perfTC">$250k → $750k</span></div>
-          <div class="kv-row"><span class="k">Latest monthly NOI</span><span class="v pos" id="perfLatest">$352k</span></div>
-          <div class="kv-row"><span class="k">Average monthly NOI</span><span class="v" id="perfAvg">$132k</span></div>
+          <div class="kv-row"><span class="k">Trading capital deployed</span><span class="v" id="perfTC">—</span></div>
+          <div class="kv-row"><span class="k">Latest monthly NOI</span><span class="v pos" id="perfLatest">—</span></div>
+          <div class="kv-row"><span class="k">Average monthly NOI</span><span class="v" id="perfAvg">—</span></div>
         </div>
         <div class="kv">
-          <div class="kv-row"><span class="k">Annualised run-rate</span><span class="v" id="perfRR">$4.23M</span></div>
-          <div class="kv-row"><span class="k">Max monthly loss</span><span class="v neg" id="perfMaxLoss">−$50k</span></div>
-          <div class="kv-row"><span class="k">Max cumulative drawdown</span><span class="v neg" id="perfMaxDD">−$323k</span></div>
+          <div class="kv-row"><span class="k">Annualised run-rate</span><span class="v" id="perfRR">—</span></div>
+          <div class="kv-row"><span class="k">Max monthly loss</span><span class="v neg" id="perfMaxLoss">—</span></div>
+          <div class="kv-row"><span class="k">Max cumulative drawdown</span><span class="v neg" id="perfMaxDD">—</span></div>
         </div>
         <div class="kv">
           <div class="kv-row"><span class="k">Indicative Sharpe</span><span class="v" id="perfSharpe">—</span></div>
-          <div class="kv-row"><span class="k">First profitable month</span><span class="v" id="perfBE">M13 · Oct '27</span></div>
-          <div class="kv-row"><span class="k">Payback (cum cash &gt; raise)</span><span class="v" id="perfPay">Aug '28</span></div>
+          <div class="kv-row"><span class="k">First profitable month</span><span class="v" id="perfBE">—</span></div>
+          <div class="kv-row"><span class="k">Capital fully returned</span><span class="v" id="perfPay">—</span></div>
         </div>
       </div>
-      <p class="foot-note">Modelled. Evergreen strategy: no terminal exit assumed. Indicative Sharpe is computed from monthly NOI series (annualised). For investor decisioning, refer to fully diluted return profile on Waterfall tab.</p>
+      <p class="foot-note">Modelled. Evergreen strategy: no terminal exit assumed. Indicative Sharpe is computed from monthly NOI (annualised). For investor decisioning, refer to the fully diluted return profile on the Waterfall tab.</p>
     </div>
   </section>
 
   <!-- P&L -->
   <section class="section" id="pnl">
     <div class="panel">
-      <div class="panel-head">
-        <span class="panel-title"><span class="h-bar"></span>Monthly P&amp;L · revenue, NOI &amp; cumulative cash</span>
-        <span class="panel-rn">36 months · responds to scenario controls</span>
-      </div>
+      <div class="panel-head"><span class="panel-title"><span class="h-bar"></span>Monthly P&amp;L · revenue, NOI &amp; cumulative cash</span><span class="panel-rn">36 months · responds to scenario controls</span></div>
       <div class="chart-wrap tall"><canvas id="pnlChart"></canvas></div>
     </div>
-
     <div class="grid g3" style="margin-top:14px;">
-      <div class="kpi"><span class="lbl">FY3 gross margin</span><span class="val accent" id="gmFy3">49.3%</span><span class="delta">Net trading revenue / revenue</span></div>
-      <div class="kpi"><span class="lbl">FY3 net margin</span><span class="val accent" id="nmFy3">28.2%</span><span class="delta">Modelled</span></div>
-      <div class="kpi"><span class="lbl">Months to first +ve month</span><span class="val" id="beMonth">13</span><span class="delta">Modelled · base case</span></div>
+      <div class="kpi"><span class="lbl">FY3 gross margin</span><span class="val accent" id="gmFy3">—</span><span class="delta">Net trading revenue / revenue</span></div>
+      <div class="kpi"><span class="lbl">FY3 net margin</span><span class="val accent" id="nmFy3">—</span><span class="delta">Modelled</span></div>
+      <div class="kpi"><span class="lbl">First profitable month</span><span class="val" id="beMonth">—</span><span class="delta">Modelled</span></div>
     </div>
-
     <div class="panel" style="margin-top:14px;">
-      <div class="panel-head">
-        <span class="panel-title"><span class="h-bar"></span>Revenue composition</span>
-        <span class="panel-rn">Annual mix · modelled</span>
-      </div>
+      <div class="panel-head"><span class="panel-title"><span class="h-bar"></span>Revenue composition</span><span class="panel-rn">Annual mix · modelled</span></div>
       <div class="chart-wrap"><canvas id="mixChart"></canvas></div>
-      <p class="foot-note" id="mixNote">Market making is the cashflow base; Tier 2 streams build the upside layer as execution and data capability mature.</p>
+      <p class="foot-note" id="mixNote">Spread trading is the cashflow base; EV model streams build the upside layer as execution and data capability mature.</p>
     </div>
   </section>
 
@@ -440,79 +365,38 @@ tbody tr.sub td{ border-top:1px solid var(--line); padding-top:13px; }
     <div class="grid g4">
       <div class="kpi"><span class="lbl">Investment</span><span class="val" id="wfInv">$1.00M</span><span class="delta">SAFE · seed</span></div>
       <div class="kpi gold"><span class="lbl">Preferred return</span><span class="val">9.0% <span class="u">/ yr</span></span><span class="delta">Compounding</span></div>
-      <div class="kpi accent"><span class="lbl">3-Year distribution</span><span class="val" id="wfDist">$3.21M</span><span class="delta">Year-3 · modelled</span></div>
-      <div class="kpi"><span class="lbl">Investor 3Y proceeds</span><span class="val" id="wfProc">$1.80M</span><span class="delta" id="wfMoM">Capital + pref + share = 1.8×</span></div>
+      <div class="kpi accent"><span class="lbl">3-Year distribution</span><span class="val" id="wfDist">—</span><span class="delta">Year-3 · modelled</span></div>
+      <div class="kpi"><span class="lbl">Pref shareholder profit</span><span class="val" id="wfPref">—</span><span class="delta" id="wfRetD">Capital returned · modelled</span></div>
     </div>
 
-    <div class="panel" style="margin-top:14px;" data-show-scenario="target" class="is-active">
-      <div class="panel-head">
-        <span class="panel-title"><span class="h-bar"></span>Distribution waterfall · 9% compounding hurdle</span>
-        <span class="panel-rn">Operational years · target case</span>
-      </div>
-      <table>
+    <div class="panel" style="margin-top:14px;">
+      <div class="panel-head"><span class="panel-title"><span class="h-bar"></span>Distribution waterfall · 9% compounding hurdle</span><span class="panel-rn" id="wfScenLbl">Operational years</span></div>
+      <table id="wfTbl">
         <thead><tr><th>Layer</th><th class="r">Year 1</th><th class="r">Year 2</th><th class="r">Year 3</th></tr></thead>
         <tbody>
-          <tr><td class="lbl">Investment proceeds (NOI)</td><td class="num r neg">−$373.0k</td><td class="num r pos">$612.8k</td><td class="num r pos">$4.50M</td></tr>
-          <tr class="sub"><td class="lbl">Preferred return (9%)</td><td class="num r">$90.0k</td><td class="num r">$98.1k</td><td class="num r">$106.9k</td></tr>
-          <tr><td class="lbl">Accrued pref balance</td><td class="num r">$1.09M</td><td class="num r">$1.19M</td><td class="num r">$1.30M</td></tr>
-          <tr><td class="lbl">Capital returned</td><td class="num r muted">—</td><td class="num r muted">—</td><td class="num r neg">−$1.30M</td></tr>
-          <tr class="tot"><td class="lbl">Pref ending balance</td><td class="num r">$1.09M</td><td class="num r">$1.19M</td><td class="num r pos">$0.0</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="panel" style="margin-top:14px;" data-show-scenario="base">
-      <div class="panel-head">
-        <span class="panel-title"><span class="h-bar"></span>Distribution waterfall · 9% compounding hurdle</span>
-        <span class="panel-rn">Operational years · base case</span>
-      </div>
-      <table>
-        <thead><tr><th>Layer</th><th class="r">Year 1</th><th class="r">Year 2</th><th class="r">Year 3</th></tr></thead>
-        <tbody>
-          <tr><td class="lbl">Investment proceeds (NOI)</td><td class="num r neg">−$424.7k</td><td class="num r pos">$528.9k</td><td class="num r pos">$1.88M</td></tr>
-          <tr class="sub"><td class="lbl">Preferred return (9%)</td><td class="num r">$90.0k</td><td class="num r">$98.1k</td><td class="num r">$59.3k</td></tr>
-          <tr><td class="lbl">Accrued pref balance</td><td class="num r">$1.09M</td><td class="num r">$1.19M</td><td class="num r">$718.6k</td></tr>
-          <tr><td class="lbl">Capital returned</td><td class="num r muted">—</td><td class="num r neg">−$528.9k</td><td class="num r neg">−$718.6k</td></tr>
-          <tr class="tot"><td class="lbl">Pref ending balance</td><td class="num r">$1.09M</td><td class="num r">$659.2k</td><td class="num r pos">$0.0</td></tr>
+          <tr><td class="lbl">Investment proceeds (NOI)</td><td class="num r" data-wf-ip></td><td class="num r" data-wf-ip></td><td class="num r" data-wf-ip></td></tr>
+          <tr class="sub"><td class="lbl">Preferred return (9%)</td><td class="num r" data-wf-pref></td><td class="num r" data-wf-pref></td><td class="num r" data-wf-pref></td></tr>
+          <tr><td class="lbl">Accrued pref balance</td><td class="num r" data-wf-acc></td><td class="num r" data-wf-acc></td><td class="num r" data-wf-acc></td></tr>
+          <tr><td class="lbl">Capital returned</td><td class="num r muted" data-wf-ret></td><td class="num r muted" data-wf-ret></td><td class="num r" data-wf-ret></td></tr>
+          <tr class="tot"><td class="lbl">Pref ending balance</td><td class="num r" data-wf-end></td><td class="num r" data-wf-end></td><td class="num r pos" data-wf-end></td></tr>
         </tbody>
       </table>
     </div>
 
     <div class="grid g2" style="margin-top:14px;">
-      <div class="panel" data-show-scenario="target" class="is-active">
-        <div class="panel-head">
-          <span class="panel-title"><span class="h-bar"></span>Year-3 distribution</span>
-          <span class="panel-rn">Target case</span>
-        </div>
-        <div class="kv">
-          <div class="kv-row"><span class="k">Total Year-3 distribution</span><span class="v">$3.21M</span></div>
-          <div class="kv-row"><span class="k">Catch-up · founders</span><span class="v">$295.0k</span></div>
-          <div class="kv-row"><span class="k">GP profit · founders</span><span class="v">$2.41M</span></div>
-          <div class="kv-row"><span class="k">Pref shareholder profit</span><span class="v accent">$502.0k</span></div>
-          <div class="kv-row total"><span class="k">Investor 3Y proceeds</span><span class="v">$1.80M (1.8× on capital)</span></div>
-        </div>
-      </div>
-      <div class="panel" data-show-scenario="base">
-        <div class="panel-head">
-          <span class="panel-title"><span class="h-bar"></span>Year-3 distribution</span>
-          <span class="panel-rn">Base case</span>
-        </div>
-        <div class="kv">
-          <div class="kv-row"><span class="k">Total Year-3 distribution</span><span class="v">$1.16M</span></div>
-          <div class="kv-row"><span class="k">Catch-up · founders</span><span class="v">$247.4k</span></div>
-          <div class="kv-row"><span class="k">GP profit · founders</span><span class="v">$756.0k</span></div>
-          <div class="kv-row"><span class="k">Pref shareholder profit</span><span class="v accent">$157.5k</span></div>
-          <div class="kv-row total"><span class="k">Investor 3Y proceeds</span><span class="v">$1.40M (1.4× on capital)</span></div>
-        </div>
-      </div>
-
       <div class="panel">
-        <div class="panel-head">
-          <span class="panel-title"><span class="h-bar"></span>Catch-up &amp; long-run split</span>
-          <span class="panel-rn">Mechanics</span>
+        <div class="panel-head"><span class="panel-title"><span class="h-bar"></span>Year-3 distribution</span><span class="panel-rn" id="wfDistLbl">Modelled</span></div>
+        <div class="kv">
+          <div class="kv-row"><span class="k">Total Year-3 distribution</span><span class="v" id="wfTd">—</span></div>
+          <div class="kv-row"><span class="k">Catch-up · founders</span><span class="v" id="wfCatch">—</span></div>
+          <div class="kv-row"><span class="k">GP profit · founders</span><span class="v" id="wfGp">—</span></div>
+          <div class="kv-row total"><span class="k">Pref shareholder profit</span><span class="v" id="wfPref2">—</span></div>
         </div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><span class="panel-title"><span class="h-bar"></span>Catch-up &amp; long-run split</span><span class="panel-rn">Mechanics</span></div>
         <p style="font-size:0.92rem; line-height:1.55; color:var(--text); margin:0 0 12px;">
-          Once invested capital and accrued preferred return are paid in full, a catch-up restores the agreed founder / HoldCo split. Distributions thereafter route <strong>pro-rata</strong> across the post-conversion cap structure: <span id="splitText">~83% founders, ~17% preferred SAFE</span>.
+          Once invested capital and accrued preferred return are paid in full, a catch-up restores the agreed founder / HoldCo split. Distributions thereafter route <strong>pro-rata</strong>: <span id="splitText">~83% founders, ~17% preferred SAFE</span>.
         </p>
         <p class="foot-note" style="margin-top:0;">Evergreen strategy: no terminal exit assumed. Investor return is the sum of capital, preferred return and pro-rata share of ongoing distributions. Terms are indicative and subject to final legal documentation.</p>
       </div>
@@ -523,10 +407,7 @@ tbody tr.sub td{ border-top:1px solid var(--line); padding-top:13px; }
   <section class="section" id="captable">
     <div class="grid g2">
       <div class="panel">
-        <div class="panel-head">
-          <span class="panel-title"><span class="h-bar"></span>Pre-SAFE capitalisation</span>
-          <span class="panel-rn">Founders · common</span>
-        </div>
+        <div class="panel-head"><span class="panel-title"><span class="h-bar"></span>Pre-SAFE capitalisation</span><span class="panel-rn">Founders · common</span></div>
         <table>
           <thead><tr><th>Shareholder</th><th class="r">Shares</th><th class="r">% holding</th></tr></thead>
           <tbody>
@@ -535,11 +416,7 @@ tbody tr.sub td{ border-top:1px solid var(--line); padding-top:13px; }
             <tr class="tot"><td class="lbl">Total pre-money</td><td class="num r">1,000,000</td><td class="num r">100.0%</td></tr>
           </tbody>
         </table>
-
-        <div class="panel-head" style="margin-top:24px;">
-          <span class="panel-title"><span class="h-bar"></span>SAFE / ASA terms</span>
-          <span class="panel-rn">Seed instrument</span>
-        </div>
+        <div class="panel-head" style="margin-top:24px;"><span class="panel-title"><span class="h-bar"></span>SAFE / ASA terms</span><span class="panel-rn">Seed instrument</span></div>
         <div class="kv">
           <div class="kv-row"><span class="k">Investment</span><span class="v" id="capInv">$1,000,000</span></div>
           <div class="kv-row"><span class="k">Valuation cap</span><span class="v">$5,250,000</span></div>
@@ -547,12 +424,8 @@ tbody tr.sub td{ border-top:1px solid var(--line); padding-top:13px; }
           <div class="kv-row"><span class="k">Hypothetical next round</span><span class="v">$6,000,000</span></div>
         </div>
       </div>
-
       <div class="panel">
-        <div class="panel-head">
-          <span class="panel-title"><span class="h-bar"></span>Conversion logic</span>
-          <span class="panel-rn">Effective share price</span>
-        </div>
+        <div class="panel-head"><span class="panel-title"><span class="h-bar"></span>Conversion logic</span><span class="panel-rn">Effective share price</span></div>
         <div class="kv">
           <div class="kv-row"><span class="k">Company capitalisation</span><span class="v">1,000,000</span></div>
           <div class="kv-row"><span class="k">Share price at cap</span><span class="v">$5.25</span></div>
@@ -560,11 +433,7 @@ tbody tr.sub td{ border-top:1px solid var(--line); padding-top:13px; }
           <div class="kv-row"><span class="k">Effective price</span><span class="v accent">$4.80</span></div>
           <div class="kv-row total"><span class="k">SAFE shares issued</span><span class="v" id="capShares">208,333</span></div>
         </div>
-
-        <div class="panel-head" style="margin-top:24px;">
-          <span class="panel-title"><span class="h-bar"></span>Pro-forma fully diluted</span>
-          <span class="panel-rn">Post-conversion</span>
-        </div>
+        <div class="panel-head" style="margin-top:24px;"><span class="panel-title"><span class="h-bar"></span>Pro-forma fully diluted</span><span class="panel-rn">Post-conversion</span></div>
         <table>
           <thead><tr><th>Holder</th><th class="r">Shares</th><th class="r">% diluted</th></tr></thead>
           <tbody>
@@ -576,531 +445,440 @@ tbody tr.sub td{ border-top:1px solid var(--line); padding-top:13px; }
       </div>
     </div>
 
-    <div class="panel" style="margin-top:14px;">
-      <div class="panel-head">
-        <span class="panel-title"><span class="h-bar"></span>Ownership · pro-forma</span>
-        <span class="panel-rn" id="capChartLbl">Base case</span>
+    <div class="grid" style="margin-top:14px;">
+      <div class="panel">
+        <div class="panel-head"><span class="panel-title"><span class="h-bar"></span>Ownership · pro-forma</span><span class="panel-rn" id="capChartLbl">Modelled</span></div>
+        <div class="chart-wrap"><canvas id="capChart"></canvas></div>
       </div>
-      <div class="chart-wrap"><canvas id="capChart"></canvas></div>
     </div>
   </section>
 
   <p class="foot-note" style="text-align:center; margin-top:30px;">© City Road Research Ltd. · For information only. Does not constitute an offer to subscribe for or purchase securities. Early-stage investment involves a high degree of risk.</p>
-
 </div>
-
-<!-- REFRESH MODAL -->
 <div class="modal-bg" id="refreshModal">
   <div class="modal">
     <h3>Refresh from <em>model</em></h3>
-    <div class="sub">Pull latest figures from the spreadsheet</div>
-
-    <p style="font-size:0.94rem; line-height:1.55; color:var(--text); margin:0 0 14px;">
-      Pick which scenario to refresh. The dashboard reads the <strong>Full PnL</strong> tab for Target and the <strong>Financial Model</strong> tab for Base.
-    </p>
+    <div class="sub">Paste one block from the monthly model tab</div>
+    <p style="margin:0 0 14px;">Pick the scenario, then copy the monthly <strong>P&amp;L block</strong> straight from Google Sheets and paste it below. The dashboard reads it <strong>by row label</strong> — it finds Spread Trading / Market Making, the EV-model rows, Trading Fees, Adverse Selection, Infrastructure, Payroll and Other Expenses automatically and rebuilds every tab. One paste, no per-row steps.</p>
 
     <div class="scenario-picker">
-      <label class="checked" onclick="pickScenario('target', this)"><input type="radio" name="refscen" checked> Target · Tier 1 &amp; 2 ($1M)</label>
-      <label onclick="pickScenario('base', this)"><input type="radio" name="refscen"> Base · MM only ($1M)</label>
+      <label class="checked" onclick="pickScenario('target', this)"><input type="radio" name="refscen" checked> Target · spread + EV alpha</label>
+      <label onclick="pickScenario('base', this)"><input type="radio" name="refscen"> Base · MM-only evergreen</label>
     </div>
 
-    <div style="margin-bottom:14px;">
-      <div style="font-family:var(--mono); font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); margin-bottom:6px;" id="csvLabel">Paste 36 monthly values · <code>Market Making</code></div>
-      <textarea class="csv-input" id="csvInput" placeholder="$116,250	$112,500	$116,250	$193,750  ..."></textarea>
+    <div style="font-family:var(--mono); font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin-bottom:6px;">
+      Paste rows · <code id="pasteHint">Full PnL tab</code>
+    </div>
+    <textarea class="csv-input" id="csvInput" placeholder="Paste the rows from the model here. Include each row's label, e.g.:&#10;Spread Trading	$581,250	$562,500	...&#10;Price-Lag Arb...	$0	$0	...&#10;Trading Fees	$58,125	...&#10;Adverse Selection	$435,938	...&#10;Infrastructure	$18,250	...&#10;Payroll	$26,772	...&#10;Other Expenses	$27,250	..."></textarea>
+
+    <button class="adv-toggle" onclick="toggleAdv()" id="advBtn">▸ Advanced: deal terms (waterfall &amp; cap table)</button>
+    <div class="adv-panel" id="advPanel">
+      <p style="margin:0 0 12px; font-size:0.86rem; color:var(--muted);">These rarely change between refreshes — they're pre-filled from the current model. Only edit if deal terms move. <strong>Capital returned per year</strong> drives the payback metric and the waterfall ending balances. Values feed the Waterfall and Cap Table tabs directly.</p>
+      <div class="adv-grid">
+        <label>Inv. proceeds Y1<input type="number" id="adv_ipY1"></label>
+        <label>Inv. proceeds Y2<input type="number" id="adv_ipY2"></label>
+        <label>Inv. proceeds Y3<input type="number" id="adv_ipY3"></label>
+        <label>Capital returned Y1<input type="number" id="adv_returnedY1"></label>
+        <label>Capital returned Y2<input type="number" id="adv_returnedY2"></label>
+        <label>Capital returned Y3<input type="number" id="adv_returnedY3"></label>
+        <label>Total distribution<input type="number" id="adv_totalDist"></label>
+        <label>Catch-up founders<input type="number" id="adv_catchup"></label>
+        <label>GP profit founders<input type="number" id="adv_gpFounders"></label>
+        <label>Pref shareholders<input type="number" id="adv_prefHolders"></label>
+        <label>SAFE shares<input type="number" id="adv_safeShares"></label>
+        <label>Raise<input type="number" id="adv_raise"></label>
+      </div>
     </div>
 
     <div class="modal-status" id="modalStatus">&nbsp;</div>
-
     <div class="modal-actions">
       <button class="modal-btn" onclick="closeRefresh()">Cancel</button>
-      <button class="modal-btn primary" id="csvUpdateBtn" onclick="applyCsvRow()">Next →</button>
+      <button class="modal-btn primary" onclick="applyPaste()">Apply &amp; rebuild</button>
     </div>
-
-    <p class="foot-note" style="margin-top:18px;">
-      <strong>Heads up:</strong> a true live link would require Sheets API + hosted endpoint. Paste-update keeps the model auditable and confidential in one file.
-    </p>
+    <p class="foot-note" style="margin-top:18px;"><strong>Self-contained:</strong> nothing leaves this file. A live link would require publishing the sheet (breaks confidentiality) or a hosted API. Paste-by-label keeps the data room private and auditable in one HTML file.</p>
   </div>
 </div>
-
 <script>
-/* ── Source-of-truth: two complete scenario data sets ── */
 const MONTHS = ['Oct\'26','Nov\'26','Dec\'26','Jan\'27','Feb\'27','Mar\'27','Apr\'27','May\'27','Jun\'27','Jul\'27','Aug\'27','Sep\'27','Oct\'27','Nov\'27','Dec\'27','Jan\'28','Feb\'28','Mar\'28','Apr\'28','May\'28','Jun\'28','Jul\'28','Aug\'28','Sep\'28','Oct\'28','Nov\'28','Dec\'28','Jan\'29','Feb\'29','Mar\'29','Apr\'29','May\'29','Jun\'29','Jul\'29','Aug\'29','Sep\'29'];
 
-/* TARGET = Multi-strategy ($1M raise, Tier 1 & 2, Full PnL tab) */
 const TARGET = {
-  raise: 1_000_000,
-  capRaise: 1_000_000,
-  safeShares: 208333,
-  founderPct: 82.8,
-  safePct: 17.2,
-  tradingCapital: '$250k → $750k',
-  dailyVol: "$3.75M → $31.25M",
-  m36MonthlyVol: '$938M',
-  mm:[116250,112500,116250,193750,175000,193750,187500,193750,187500,325500,325500,315000,379750,367500,379750,558000,504000,558000,607500,627750,607500,837000,968750,937500,968750,937500,968750,968750,875000,968750,937500,968750,937500,968750,968750,937500],
-  vr:[0,0,0,0,1750,1938,1875,1938,1875,3255,3255,3150,3798,3675,3798,5580,5040,5580,6075,6278,6075,8370,9688,9375,9688,9375,9688,9688,8750,9688,9375,9688,9375,9688,9688,9375],
-  pl:[0,0,0,6000,6000,6000,25649,25649,25649,25649,25649,25649,26786,26786,26786,47250,47250,47250,23418,23418,23418,23418,35126,35126,8696,8696,8696,8696,8696,8696,8696,8696,8696,8696,8696,8696],
-  sm:[0,0,0,0,0,0,3507,3507,3507,3507,3507,3507,14349,14349,14349,25313,25313,25313,34848,34848,34848,34848,52271,52271,121472,121472,121472,121472,121472,121472,121472,121472,121472,121472,121472,121472],
-  cv:[0,0,0,0,0,0,0,0,0,0,0,0,4783,4783,4783,8438,8438,8438,33454,33454,33454,33454,50181,50181,241564,241564,241564,241564,241564,241564,241564,241564,241564,241564,241564,241564],
-  fees:[4650,4500,4650,7750,7000,7750,7500,7750,7500,13020,13020,12600,15190,14700,15190,22320,20160,22320,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-  adv:[93000,90000,93000,135625,122500,135625,131250,135625,131250,227850,227850,220500,265825,257250,265825,390600,352800,390600,425250,439425,425250,585900,678125,609375,629688,609375,629688,629688,568750,581250,562500,581250,562500,581250,581250,562500],
-  infra:[14250,14250,14250,23000,23000,23000,36500,36500,36500,44000,44000,44000,48000,48000,48000,48000,48000,48000,61000,61000,61000,61000,61000,61000,77500,77500,77500,77500,77500,77500,92000,92000,92000,92000,92000,92000],
-  payroll:[26772,26772,26772,68350,68350,68350,68350,68350,68350,68350,68350,68350,68350,68350,68350,180013,180013,180013,180013,180013,180013,180013,180013,180013,180013,180013,180013,293889,293889,293889,293889,293889,293889,293889,293889,293889],
-  officeMisc:[27250,9750,9750,10000,10000,10000,10000,10000,10000,10000,10000,10000,11000,11000,11000,11000,11000,11000,12500,12500,12500,12500,12500,12500,15000,15000,15000,15000,15000,15000,18000,18000,18000,18000,18000,18000]
+  spread:[581250,562500,581250,581250,525000,581250,562500,581250,562500,581250,581250,562500,813750,787500,813750,813750,735000,930000,900000,930000,900000,930000,930000,900000,1395000,1350000,1395000,1395000,1260000,1395000,1500000,1550000,1500000,1550000,1550000,1500000],
+  pl:[0,0,0,6000,6000,6000,25649,25649,25649,25649,25649,25649,26786,26786,26786,39857,36000,45551,19269,19912,19269,19912,19912,19269,5032,4870,5032,5032,4545,5032,5411,5591,5411,5591,5591,5411],
+  sm:[0,0,0,0,0,0,3507,3507,3507,3507,3507,3507,14349,14349,14349,21352,19286,24402,28675,29630,28675,29630,29630,28675,70292,68025,70292,70292,63490,70292,75583,78102,75583,78102,78102,75583],
+  cv:[0,0,0,0,0,0,0,0,0,0,0,0,4783,4783,4783,7117,6429,8134,27528,28445,27528,28445,28445,27528,139785,135276,139785,139785,126258,139785,150307,155317,150307,155317,155317,150307],
+  fees:[58125,56250,58125,58125,52500,58125,56250,58125,56250,58125,58125,56250,81375,78750,81375,81375,73500,93000,90000,93000,90000,93000,93000,90000,139500,135000,139500,139500,126000,139500,150000,155000,150000,155000,155000,150000],
+  adv:[435938,421875,435938,435938,393750,435938,421875,435938,421875,435938,435938,421875,569625,551250,569625,569625,514500,651000,630000,651000,630000,651000,651000,630000,837000,810000,837000,837000,756000,837000,900000,930000,900000,930000,930000,900000],
+  infra:[18250,18250,18250,22000,22000,22000,32000,34500,34500,40000,40000,40000,43000,43000,45500,45500,45500,45500,55500,55500,55500,58000,58000,58000,70500,70500,70500,70500,73000,73000,84500,84500,84500,84500,84500,84500],
+  pay:[26772,26772,26772,54778,54778,54778,54778,54778,54778,54778,54778,54778,54778,54778,54778,164628,164628,164628,164628,164628,164628,164628,164628,164628,164628,164628,164628,277887,277887,277887,277887,277887,277887,277887,277887,277887],
+  other:[27250,9750,9750,10000,10000,10000,10000,10000,10000,10000,10000,10000,11000,11000,11000,11000,11000,11000,12500,12500,12500,12500,12500,12500,15000,15000,15000,15000,15000,15000,18000,18000,18000,18000,18000,18000],
+  raise:1000000, founderPct:82.8, safePct:17.2, safeShares:208333,
+  tradingCapital:'$250k \u2192 $750k', dailyVol:'$3.75M \u2192 $10.0M', turnover:'15\u00d7 \u2192 13\u00d7', m36Vol:'$300M',
+  recVolM36:'$21.0M',
+  wf:{ ipY1:167676, ipY2:487526, ipY3:3747966, prefY1:90000, prefY2:83009, prefY3:61693,
+       accruedY1:1090000, accruedY2:1173009, accruedY3:747177,
+       returnedY1:167676, returnedY2:487526, returnedY3:747177,
+       totalDist:3000790, catchup:234703, gpFounders:2289175, prefHolders:476912 }
 };
 
-/* BASE = Market making only ($1M raise, Tier 1 only, Financial Model tab) */
 const BASE = {
-  raise: 1_000_000,
-  capRaise: 1_000_000,
-  safeShares: 208333,
-  founderPct: 82.8,
-  safePct: 17.2,
-  tradingCapital: '$250k → $500k',
-  dailyVol: "$2.50M → $25.00M",
-  m36MonthlyVol: '$750M',
-  mm:[77500,75000,77500,124000,112000,124000,150000,155000,150000,279000,279000,270000,325500,315000,325500,465000,420000,465000,506250,523125,506250,581250,775000,750000,775000,750000,775000,775000,700000,775000,750000,775000,750000,775000,775000,750000],
-  vr:[0,0,0,0,1120,1240,1500,1550,1500,2790,2790,2700,3255,3150,3255,4650,4200,4650,5063,5231,5063,5813,7750,7500,7750,7500,7750,7750,7000,7750,7500,7750,7500,7750,7750,7500],
-  pl:new Array(36).fill(0),
-  sm:new Array(36).fill(0),
-  cv:new Array(36).fill(0),
-  fees:[3100,3000,3100,4960,4480,4960,6000,6200,6000,11160,11160,10800,13020,12600,13020,18600,16800,18600,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-  adv:[62000,60000,62000,86800,78400,86800,105000,108500,105000,195300,195300,189000,227850,220500,227850,325500,294000,325500,354375,366188,354375,406875,542500,487500,503750,487500,503750,503750,455000,465000,450000,465000,450000,465000,465000,450000],
-  infra:[5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000],
-  payroll:[30000,30000,30000,30000,30000,30000,30000,30000,30000,30000,30000,30000,60000,60000,60000,60000,60000,60000,60000,60000,60000,60000,60000,60000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000],
-  officeMisc:[6000,6000,6000,6000,6000,6000,6000,6000,6000,6000,6000,6000,12500,12500,12500,12500,12500,12500,12500,12500,12500,12500,12500,22500,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000]
+  spread:[581250,562500,581250,581250,525000,581250,562500,581250,562500,581250,581250,562500,813750,787500,813750,813750,735000,930000,900000,930000,900000,930000,930000,900000,1395000,1350000,1395000,1395000,1260000,1395000,1500000,1550000,1500000,1550000,1550000,1500000],
+  pl:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  sm:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  cv:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  fees:[58125,56250,58125,58125,52500,58125,56250,58125,56250,58125,58125,56250,81375,78750,81375,81375,73500,93000,90000,93000,90000,93000,93000,90000,139500,135000,139500,139500,126000,139500,150000,155000,150000,155000,155000,150000],
+  adv:[435938,421875,435938,435938,393750,435938,421875,435938,421875,435938,435938,421875,569625,551250,569625,569625,514500,651000,630000,651000,630000,651000,651000,630000,837000,810000,837000,837000,756000,837000,900000,930000,900000,930000,930000,900000],
+  infra:[18250,18250,18250,22000,22000,22000,32000,34500,34500,40000,40000,40000,43000,43000,45500,45500,45500,45500,55500,55500,55500,58000,58000,58000,70500,70500,70500,70500,73000,73000,84500,84500,84500,84500,84500,84500],
+  pay:[26772,26772,26772,49806,49806,49806,49806,49806,49806,49806,49806,49806,49806,49806,49806,62056,62056,62056,62056,62056,62056,62056,62056,62056,62056,62056,62056,75206,75206,75206,75206,75206,75206,75206,75206,75206],
+  other:[27250,9750,9750,10000,10000,10000,10000,10000,10000,10000,10000,10000,11000,11000,11000,11000,11000,11000,12500,12500,12500,12500,12500,12500,15000,15000,15000,15000,15000,15000,18000,18000,18000,18000,18000,18000],
+  raise:1000000, founderPct:82.8, safePct:17.2, safeShares:208333,
+  tradingCapital:'$250k \u2192 $750k', dailyVol:'$3.75M \u2192 $10.0M', turnover:'15\u00d7 \u2192 13\u00d7', m36Vol:'$300M',
+  recVolM36:'n/a',
+  wf:{ ipY1:19490, ipY2:619328, ipY3:3205982, prefY1:90000, prefY2:96346, prefY3:51032,
+       accruedY1:1090000, accruedY2:1186346, accruedY3:618050,
+       returnedY1:19490, returnedY2:619328, returnedY3:618050,
+       totalDist:2587932, catchup:237378, gpFounders:1945286, prefHolders:405268 }
 };
 
 let SCENARIOS = {target: TARGET, base: BASE};
 let activeScenario = 'target';
 function M(){ return SCENARIOS[activeScenario]; }
 
-/* ── Formatter ── */
 function fmtMoney(v){
-  const a = Math.abs(v);
-  const sign = v < 0 ? '−' : '';
-  if(a >= 1e6) return sign + '$' + (a/1e6).toFixed(2) + 'M';
-  if(a >= 1e3) return sign + '$' + (a/1e3).toFixed(1) + 'k';
-  return sign + '$' + Math.round(a).toLocaleString();
+  const a=Math.abs(v); const sign=v<0?'−':'';
+  if(a>=1e6) return sign+'$'+(a/1e6).toFixed(2)+'M';
+  if(a>=1e3) return sign+'$'+(a/1e3).toFixed(1)+'k';
+  return sign+'$'+Math.round(a).toLocaleString();
 }
-function fmtPct(v){ return (v<0?'−':'') + Math.abs(v).toFixed(1) + '%'; }
+function fmtPct(v){ return (v<0?'−':'')+Math.abs(v).toFixed(1)+'%'; }
 
-/* ── Build series from active scenario + scenario sliders ── */
 function getSliders(){
-  return {
-    rh:+document.getElementById('revH').value/100,
-    au:+document.getElementById('advU').value/100,
-    opx:+document.getElementById('opex').value/100
-  };
+  return { rh:+document.getElementById('revH').value/100, au:+document.getElementById('advU').value/100, opx:+document.getElementById('opex').value/100 };
 }
 function series(){
-  const m = M();
-  const {rh, au, opx} = getSliders();
-  const rev=[], tc=[], ax=[], noi=[];
+  const m=M(); const {rh,au,opx}=getSliders();
+  const rev=[],tc=[],ax=[],noi=[];
   for(let i=0;i<36;i++){
-    const grossRev = m.mm[i]+m.vr[i]+m.pl[i]+m.sm[i]+m.cv[i];
-    rev[i] = grossRev * (1 - rh);
-    tc[i] = m.fees[i] + m.adv[i]*(1+au) + m.infra[i];
-    ax[i] = (m.payroll[i] + m.officeMisc[i]) * opx;
-    noi[i] = rev[i] - tc[i] - ax[i];
+    const gr=m.spread[i]+m.pl[i]+m.sm[i]+m.cv[i];
+    rev[i]=gr*(1-rh);
+    tc[i]=m.fees[i]+m.adv[i]*(1+au)+m.infra[i];
+    ax[i]=(m.pay[i]+m.other[i])*opx;
+    noi[i]=rev[i]-tc[i]-ax[i];
   }
-  // cum cash starts with raise in M1
-  let cum = 0; const cumArr=[];
-  noi.forEach((n,i) => { cum += n + (i===0 ? m.raise : 0); cumArr.push(cum); });
-  return {rev, tc, ax, noi, cumArr};
+  let cum=0; const cumArr=[];
+  noi.forEach((n,i)=>{ cum+=n+(i===0?m.raise:0); cumArr.push(cum); });
+  return {rev,tc,ax,noi,cumArr};
 }
-
 function annualBreakdown(s){
-  const m = M(); const {rh} = getSliders();
-  function sum(arr,a,b){ let t=0; for(let i=a;i<b;i++) t+=arr[i]; return t; }
+  const m=M(); const {rh}=getSliders();
+  const sum=(arr,a,b)=>{let t=0;for(let i=a;i<b;i++)t+=arr[i];return t;};
   const yrs=[[0,12],[12,24],[24,36]];
   return {
-    mm: yrs.map(([a,b])=>sum(m.mm,a,b)*(1-rh)),
-    vr: yrs.map(([a,b])=>sum(m.vr,a,b)*(1-rh)),
-    pl: yrs.map(([a,b])=>sum(m.pl,a,b)*(1-rh)),
-    sm: yrs.map(([a,b])=>sum(m.sm,a,b)*(1-rh)),
-    cv: yrs.map(([a,b])=>sum(m.cv,a,b)*(1-rh)),
-    rev: yrs.map(([a,b])=>sum(s.rev,a,b)),
-    tc:  yrs.map(([a,b])=>sum(s.tc,a,b)),
-    ax:  yrs.map(([a,b])=>sum(s.ax,a,b)),
-    noi: yrs.map(([a,b])=>sum(s.noi,a,b))
+    spread:yrs.map(([a,b])=>sum(m.spread,a,b)*(1-rh)),
+    pl:yrs.map(([a,b])=>sum(m.pl,a,b)*(1-rh)),
+    sm:yrs.map(([a,b])=>sum(m.sm,a,b)*(1-rh)),
+    cv:yrs.map(([a,b])=>sum(m.cv,a,b)*(1-rh)),
+    rev:yrs.map(([a,b])=>sum(s.rev,a,b)),
+    tc:yrs.map(([a,b])=>sum(s.tc,a,b)),
+    ax:yrs.map(([a,b])=>sum(s.ax,a,b)),
+    noi:yrs.map(([a,b])=>sum(s.noi,a,b))
   };
 }
 
-/* ── Charts ── */
-Chart.defaults.font.family = 'Inter';
-Chart.defaults.color = '#717A86';
-const C = {accent:'#2E5AAC', ink:'#16202E', gold:'#B5893D', muted:'#9AA1AB', pos:'#3F8765', neg:'#B14B3A', grid:'rgba(22,32,46,0.08)'};
-let charts = {};
+Chart.defaults.font.family='Inter'; Chart.defaults.color='#717A86';
+const C={accent:'#2E5AAC',ink:'#16202E',gold:'#B5893D',muted:'#9AA1AB',pos:'#3F8765',neg:'#B14B3A',grid:'rgba(22,32,46,0.08)'};
+let charts={};
 
 function buildCashChart(){
-  const ctx = document.getElementById('cashChart').getContext('2d');
-  charts.cash = new Chart(ctx, {
-    type:'bar',
-    data:{ labels:MONTHS, datasets:[
-      { type:'bar', label:'Monthly revenue', data:[], backgroundColor:'rgba(46,90,172,0.55)', borderRadius:2, yAxisID:'y' },
-      { type:'line', label:'Cumulative cash', data:[], borderColor:C.gold, backgroundColor:'rgba(181,137,61,0.12)', borderWidth:2, pointRadius:0, tension:0.25, fill:true, yAxisID:'y' }
+  charts.cash=new Chart(document.getElementById('cashChart'),{type:'bar',
+    data:{labels:MONTHS,datasets:[
+      {type:'bar',label:'Monthly revenue',data:[],backgroundColor:'rgba(46,90,172,0.55)',borderRadius:2,yAxisID:'y'},
+      {type:'line',label:'Cumulative cash',data:[],borderColor:C.gold,backgroundColor:'rgba(181,137,61,0.12)',borderWidth:2,pointRadius:0,tension:0.25,fill:true,yAxisID:'y'}
     ]},
-    options:{ responsive:true, maintainAspectRatio:false,
-      plugins:{ legend:{position:'bottom', labels:{boxWidth:10, font:{size:11}}}, tooltip:{callbacks:{label:c=>c.dataset.label+': '+fmtMoney(c.parsed.y)}}},
-      scales:{ y:{ grid:{color:C.grid}, ticks:{callback:v=>fmtMoney(v), font:{size:10}}}, x:{ grid:{display:false}, ticks:{font:{size:9}, maxRotation:0, autoSkip:true, maxTicksLimit:12}}}}
-  });
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:11}}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+fmtMoney(c.parsed.y)}}},scales:{y:{grid:{color:C.grid},ticks:{callback:v=>fmtMoney(v),font:{size:10}}},x:{grid:{display:false},ticks:{font:{size:9},maxRotation:0,autoSkip:true,maxTicksLimit:12}}}}});
 }
 function buildPnlChart(){
-  const ctx = document.getElementById('pnlChart').getContext('2d');
-  charts.pnl = new Chart(ctx, {
-    type:'bar',
-    data:{ labels:MONTHS, datasets:[
-      { type:'bar', label:'Revenue', data:[], backgroundColor:'rgba(46,90,172,0.55)', borderRadius:2, yAxisID:'y' },
-      { type:'bar', label:'NOI', data:[], backgroundColor:'rgba(181,137,61,0.7)', borderRadius:2, yAxisID:'y' },
-      { type:'line', label:'Cumulative cash', data:[], borderColor:C.ink, borderWidth:2, pointRadius:0, tension:0.25, fill:false, yAxisID:'y' }
+  charts.pnl=new Chart(document.getElementById('pnlChart'),{type:'bar',
+    data:{labels:MONTHS,datasets:[
+      {type:'bar',label:'Revenue',data:[],backgroundColor:'rgba(46,90,172,0.55)',borderRadius:2,yAxisID:'y'},
+      {type:'bar',label:'NOI',data:[],backgroundColor:'rgba(181,137,61,0.7)',borderRadius:2,yAxisID:'y'},
+      {type:'line',label:'Cumulative cash',data:[],borderColor:C.ink,borderWidth:2,pointRadius:0,tension:0.25,fill:false,yAxisID:'y'}
     ]},
-    options:{ responsive:true, maintainAspectRatio:false,
-      plugins:{ legend:{position:'bottom', labels:{boxWidth:10, font:{size:11}}}, tooltip:{callbacks:{label:c=>c.dataset.label+': '+fmtMoney(c.parsed.y)}}},
-      scales:{ y:{ grid:{color:C.grid}, ticks:{callback:v=>fmtMoney(v), font:{size:10}}}, x:{ grid:{display:false}, ticks:{font:{size:9}, maxRotation:0, autoSkip:true, maxTicksLimit:12}}}}
-  });
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:11}}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+fmtMoney(c.parsed.y)}}},scales:{y:{grid:{color:C.grid},ticks:{callback:v=>fmtMoney(v),font:{size:10}}},x:{grid:{display:false},ticks:{font:{size:9},maxRotation:0,autoSkip:true,maxTicksLimit:12}}}}});
 }
 function buildMixChart(){
-  const ctx = document.getElementById('mixChart').getContext('2d');
-  charts.mix = new Chart(ctx, {
-    type:'bar',
-    data:{ labels:['FY1','FY2','FY3'], datasets:[
-      { label:'Market making', data:[], backgroundColor:C.accent },
-      { label:'Volume rebates', data:[], backgroundColor:'#5C7FB8' },
-      { label:'Price-lag arb', data:[], backgroundColor:'#93A8C9' },
-      { label:'Sports model', data:[], backgroundColor:'#C8A86E' },
-      { label:'Computer vision', data:[], backgroundColor:C.gold }
+  charts.mix=new Chart(document.getElementById('mixChart'),{type:'bar',
+    data:{labels:['FY1','FY2','FY3'],datasets:[
+      {label:'Spread trading',data:[],backgroundColor:C.accent},
+      {label:'Price-lag arb',data:[],backgroundColor:'#5C7FB8'},
+      {label:'Sports model',data:[],backgroundColor:'#C8A86E'},
+      {label:'Computer vision',data:[],backgroundColor:C.gold}
     ]},
-    options:{ responsive:true, maintainAspectRatio:false, indexAxis:'y',
-      scales:{ x:{ stacked:true, grid:{color:C.grid}, ticks:{callback:v=>fmtMoney(v), font:{size:11}}}, y:{ stacked:true, grid:{display:false}}},
-      plugins:{ legend:{position:'bottom', labels:{boxWidth:10, font:{size:11}}}, tooltip:{callbacks:{label:c=>c.dataset.label+': '+fmtMoney(c.parsed.x)}}}}
-  });
+    options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',scales:{x:{stacked:true,grid:{color:C.grid},ticks:{callback:v=>fmtMoney(v),font:{size:11}}},y:{stacked:true,grid:{display:false}}},plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:11}}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+fmtMoney(c.parsed.x)}}}}});
 }
 function buildCapChart(){
-  const ctx = document.getElementById('capChart').getContext('2d');
-  charts.cap = new Chart(ctx, {
-    type:'doughnut',
-    data:{ labels:['Founders','SAFE investor'], datasets:[{ data:[82.8,17.2], backgroundColor:[C.ink, C.accent], borderWidth:0, hoverOffset:6 }]},
-    options:{ responsive:true, maintainAspectRatio:false, cutout:'65%',
-      plugins:{ legend:{position:'bottom', labels:{boxWidth:10, font:{size:11}}}}}
-  });
+  charts.cap=new Chart(document.getElementById('capChart'),{type:'doughnut',
+    data:{labels:['Founders','SAFE investor'],datasets:[{data:[82.8,17.2],backgroundColor:[C.ink,C.accent],borderWidth:0,hoverOffset:6}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'65%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:11}}}}}});
 }
 function buildSparks(){
   ['spk1','spk2','spk3','spk4'].forEach((id,i)=>{
-    const ctx = document.getElementById(id).getContext('2d');
-    charts[id] = new Chart(ctx, {
-      type:'line',
-      data:{ labels:MONTHS, datasets:[{ data:[], borderColor:i===2?C.neg:C.accent, borderWidth:1.5, pointRadius:0, tension:0.3, fill:false }]},
-      options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{display:false}, tooltip:{enabled:false}}, scales:{x:{display:false},y:{display:false}}, elements:{line:{borderJoinStyle:'round'}}}
-    });
+    charts[id]=new Chart(document.getElementById(id),{type:'line',
+      data:{labels:MONTHS,datasets:[{data:[],borderColor:i===2?C.neg:C.accent,borderWidth:1.5,pointRadius:0,tension:0.3,fill:false}]},
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{enabled:false}},scales:{x:{display:false},y:{display:false}},elements:{line:{borderJoinStyle:'round'}}}});
   });
 }
-
-function updateCharts(s, a){
-  charts.cash.data.datasets[0].data = s.rev;
-  charts.cash.data.datasets[1].data = s.cumArr;
-  charts.cash.update('none');
-
-  charts.pnl.data.datasets[0].data = s.rev;
-  charts.pnl.data.datasets[1].data = s.noi;
-  charts.pnl.data.datasets[2].data = s.cumArr;
-  charts.pnl.update('none');
-
-  charts.mix.data.datasets[0].data = a.mm;
-  charts.mix.data.datasets[1].data = a.vr;
-  charts.mix.data.datasets[2].data = a.pl;
-  charts.mix.data.datasets[3].data = a.sm;
-  charts.mix.data.datasets[4].data = a.cv;
-  charts.mix.update('none');
-
-  // cap doughnut
-  const m = M();
-  charts.cap.data.labels = ['Founders ('+m.founderPct+'%)','SAFE ('+m.safePct+'%)'];
-  charts.cap.data.datasets[0].data = [m.founderPct, m.safePct];
-  charts.cap.update('none');
-
-  charts.spk1.data.datasets[0].data = s.noi; charts.spk1.update('none');
-  charts.spk2.data.datasets[0].data = s.noi; charts.spk2.update('none');
-  charts.spk3.data.datasets[0].data = s.cumArr; charts.spk3.update('none');
-  charts.spk4.data.datasets[0].data = s.rev; charts.spk4.update('none');
+function updateCharts(s,a){
+  charts.cash.data.datasets[0].data=s.rev; charts.cash.data.datasets[1].data=s.cumArr; charts.cash.update('none');
+  charts.pnl.data.datasets[0].data=s.rev; charts.pnl.data.datasets[1].data=s.noi; charts.pnl.data.datasets[2].data=s.cumArr; charts.pnl.update('none');
+  charts.mix.data.datasets[0].data=a.spread; charts.mix.data.datasets[1].data=a.pl; charts.mix.data.datasets[2].data=a.sm; charts.mix.data.datasets[3].data=a.cv; charts.mix.update('none');
+  const m=M();
+  charts.cap.data.labels=['Founders ('+m.founderPct+'%)','SAFE ('+m.safePct+'%)']; charts.cap.data.datasets[0].data=[m.founderPct,m.safePct]; charts.cap.update('none');
+  charts.spk1.data.datasets[0].data=s.noi; charts.spk1.update('none');
+  charts.spk2.data.datasets[0].data=s.noi; charts.spk2.update('none');
+  charts.spk3.data.datasets[0].data=s.cumArr; charts.spk3.update('none');
+  charts.spk4.data.datasets[0].data=s.rev; charts.spk4.update('none');
 }
-
-/* ── Indicative Sharpe ── */
-function sharpe(noiArr){
-  const n = noiArr.length;
-  const mean = noiArr.reduce((a,b)=>a+b,0)/n;
-  const variance = noiArr.reduce((a,b)=>a+(b-mean)**2,0)/n;
-  const std = Math.sqrt(variance);
-  if(std===0) return 0;
-  return (mean/std) * Math.sqrt(12);
-}
-
-/* ── Max drawdown from running peak ── */
-function maxDrawdown(cumArr){
-  let peak = -Infinity; let mdd = 0;
-  cumArr.forEach(c => { if(c>peak) peak=c; const dd = peak - c; if(dd>mdd) mdd=dd; });
-  return mdd;
-}
-
-/* ── Recompute everything ── */
+function sharpe(noi){ const n=noi.length,mean=noi.reduce((a,b)=>a+b,0)/n,v=noi.reduce((a,b)=>a+(b-mean)**2,0)/n,sd=Math.sqrt(v); return sd===0?0:(mean/sd)*Math.sqrt(12); }
+function maxDrawdown(cum){ let peak=-Infinity,mdd=0; cum.forEach(c=>{if(c>peak)peak=c;const dd=peak-c;if(dd>mdd)mdd=dd;}); return mdd; }
 function recompute(){
-  const s = series();
-  const a = annualBreakdown(s);
-  const m = M();
-  const {rh, au, opx} = getSliders();
+  const s=series(), a=annualBreakdown(s), m=M(), {rh,au,opx}=getSliders();
 
-  // slider labels
-  document.getElementById('revHv').textContent = '−' + (rh*100).toFixed(0) + '%';
-  document.getElementById('advUv').textContent = '+' + (au*100).toFixed(0) + '%';
-  document.getElementById('opexv').textContent = opx.toFixed(2) + '×';
+  document.getElementById('revHv').textContent='−'+(rh*100).toFixed(0)+'%';
+  document.getElementById('advUv').textContent='+'+(au*100).toFixed(0)+'%';
+  document.getElementById('opexv').textContent=opx.toFixed(2)+'×';
 
-  // scenario heading
   if(activeScenario==='target'){
-    document.getElementById('scenarioName').textContent = 'Target case';
-    document.getElementById('scenarioSub').textContent = 'Tier 1 & 2 · market making + alpha strategies';
+    document.getElementById('scenarioName').textContent='Target case';
+    document.getElementById('scenarioSub').textContent='Spread trading + EV model alpha';
   } else {
-    document.getElementById('scenarioName').textContent = 'Base case';
-    document.getElementById('scenarioSub').textContent = 'Tier 1 only — market making';
+    document.getElementById('scenarioName').textContent='Base case';
+    document.getElementById('scenarioSub').textContent='Market-making only · evergreen';
   }
-  const customised = (rh!==0 || au!==0 || opx!==1);
-  if(customised){
-    document.getElementById('scenarioSub').textContent += ' · custom sensitivity';
-  }
+  if(rh!==0||au!==0||opx!==1) document.getElementById('scenarioSub').textContent+=' · custom sensitivity';
 
-  // headline KPIs
-  const totalRev = s.rev.reduce((a,b)=>a+b,0);
-  const totalNoi = s.noi.reduce((a,b)=>a+b,0);
-  const overallNm = totalRev ? (totalNoi/totalRev*100) : 0;
-  document.getElementById('kpiRev').textContent = fmtMoney(totalRev);
-  document.getElementById('kpiNoi').textContent = fmtMoney(totalNoi);
-  document.getElementById('kpiNoiD').textContent = fmtPct(overallNm) + ' net margin · modelled';
-  document.getElementById('kpiCash').textContent = fmtMoney(s.cumArr[35]);
-  document.getElementById('kpiCashD').textContent = 'Off ' + fmtMoney(m.raise) + ' raise · modelled';
+  const totalRev=s.rev.reduce((a,b)=>a+b,0), totalNoi=s.noi.reduce((a,b)=>a+b,0);
+  const overallNm=totalRev?(totalNoi/totalRev*100):0;
+  document.getElementById('kpiRev').textContent=fmtMoney(totalRev);
+  document.getElementById('kpiNoi').textContent=fmtMoney(totalNoi);
+  document.getElementById('kpiNoiD').textContent=fmtPct(overallNm)+' net margin · modelled';
+  document.getElementById('kpiCash').textContent=fmtMoney(s.cumArr[35]);
+  document.getElementById('kpiCashD').textContent='incl. '+fmtMoney(m.raise)+' raise · modelled';
+  document.getElementById('kpiGen').textContent=fmtMoney(totalNoi);
 
-  // payback: cum cash > raise
-  let payIdx = s.cumArr.findIndex(c => c >= m.raise);
-  // Note: cum starts at raise minus M1 NOI (NOI may be negative so cum may be > raise immediately). For meaningful payback, find first month where cum exceeds the *highest* prior point (recovery).
-  // Better: find first month where cumulative > initial peak (which is raise + max(noi[0],0)) after it has dipped
-  const initialPeak = s.cumArr[0];
-  let dipped = false; let payback = -1;
-  s.cumArr.forEach((c,i)=>{
-    if(c < initialPeak) dipped = true;
-    if(dipped && c > initialPeak && payback===-1) payback = i;
-  });
-  if(payback===-1){
-    // never dipped — payback is M1
-    document.getElementById('kpiPay').textContent = 'M1';
-  } else {
-    document.getElementById('kpiPay').textContent = MONTHS[payback];
-  }
-  document.getElementById('perfPay').textContent = payback>=0 ? MONTHS[payback] : 'M1';
+  // (payback computed from waterfall capital-returned, see waterfall section below)
 
   // annual table
-  function fillRow(attr, arr3){
-    const cells = document.querySelectorAll('#annualTbl tbody td[data-'+attr+']');
-    arr3.forEach((v,i)=> cells[i] && (cells[i].textContent = v===0 ? '—' : fmtMoney(v)));
-    if(cells[3]) cells[3].textContent = fmtMoney(arr3.reduce((a,b)=>a+b,0));
+  function fillRow(attr,arr3){
+    const cells=document.querySelectorAll('#annualTbl tbody td[data-'+attr+']');
+    arr3.forEach((v,i)=>cells[i]&&(cells[i].textContent=v===0?'—':fmtMoney(v)));
+    if(cells[3])cells[3].textContent=fmtMoney(arr3.reduce((a,b)=>a+b,0));
   }
-  fillRow('mm', a.mm);
-  fillRow('vr', a.vr);
-  fillRow('pl', a.pl);
-  fillRow('sm', a.sm);
-  fillRow('cv', a.cv);
-  fillRow('tr', a.rev);
-  fillRow('tc', a.tc);
-  fillRow('ax', a.ax);
-  fillRow('noi', a.noi);
-  const nmCells = document.querySelectorAll('#annualTbl tbody td[data-nm]');
-  a.noi.forEach((n,i)=>{
-    const nm = a.rev[i] ? (n/a.rev[i]*100) : 0;
-    if(nmCells[i]) nmCells[i].textContent = fmtPct(nm);
-  });
-  if(nmCells[3]) nmCells[3].textContent = fmtPct(overallNm);
+  fillRow('spread',a.spread); fillRow('pl',a.pl); fillRow('sm',a.sm); fillRow('cv',a.cv);
+  fillRow('tr',a.rev); fillRow('tc',a.tc); fillRow('ax',a.ax); fillRow('noi',a.noi);
+  const nmCells=document.querySelectorAll('#annualTbl tbody td[data-nm]');
+  a.noi.forEach((n,i)=>{ const nm=a.rev[i]?(n/a.rev[i]*100):0; if(nmCells[i])nmCells[i].textContent=fmtPct(nm); });
+  if(nmCells[3])nmCells[3].textContent=fmtPct(overallNm);
+  // hide EV rows in base
+  const isTarget=activeScenario==='target';
+  document.querySelectorAll('#annualTbl tbody tr[data-tier2]').forEach(r=>r.style.display=isTarget?'':'none');
+  document.getElementById('annualNote').textContent=isTarget
+    ? 'Spread trading plus three EV-model streams. Figures modelled / illustrative — not a forecast or guarantee of returns.'
+    : 'Evergreen market-making only. Figures modelled / illustrative — not a forecast or guarantee of returns.';
 
-  // spark values
-  const latest = s.noi[35];
-  const avgNoi = s.noi.reduce((a,b)=>a+b,0)/36;
-  const mdd = maxDrawdown(s.cumArr);
-  const annualised = latest * 12;
-  document.getElementById('spkLatest').textContent = fmtMoney(latest);
-  document.getElementById('spkAvg').textContent = fmtMoney(avgNoi);
-  document.getElementById('spkDD').textContent = '−' + fmtMoney(mdd).replace('$','$');
-  document.getElementById('spkRR').textContent = fmtMoney(annualised);
+  // sparks
+  const latest=s.noi[35], avgNoi=s.noi.reduce((a,b)=>a+b,0)/36, mdd=maxDrawdown(s.cumArr), annualised=latest*12;
+  document.getElementById('spkLatest').textContent=fmtMoney(latest);
+  document.getElementById('spkAvg').textContent=fmtMoney(avgNoi);
+  document.getElementById('spkDD').textContent='−'+fmtMoney(mdd).replace('−','');
+  document.getElementById('spkRR').textContent=fmtMoney(annualised);
 
   // edge bridge
-  const advBpsV = 8.0 * (1+au);
-  const net = 10.0 - 0.4 - advBpsV;
-  document.getElementById('advBps').textContent = '−' + advBpsV.toFixed(1) + ' bps';
-  document.getElementById('netBps').textContent = (net>=0?'+':'−') + Math.abs(net).toFixed(1) + ' bps';
-  document.getElementById('netEdgePct').textContent = net.toFixed(1) + ' bps (' + (net/100).toFixed(3) + '%)';
+  const advBpsV=34.0*(1+au), net=50.0-5.0-advBpsV;
+  document.getElementById('advBps').textContent='−'+advBpsV.toFixed(1)+' bps';
+  document.getElementById('netBps').textContent=(net>=0?'+':'−')+Math.abs(net).toFixed(1)+' bps';
+  document.getElementById('netEdgePct').textContent=net.toFixed(1)+' bps ('+(net/100).toFixed(2)+'%)';
+  document.getElementById('capVol').textContent=m.dailyVol;
+  if(document.getElementById('capTurn')) document.getElementById('capTurn').textContent=m.turnover;
+  document.getElementById('capM36').textContent=m.m36Vol;
 
-  // capacity
-  document.getElementById('capVol').textContent = m.dailyVol;
-  document.getElementById('capM36').textContent = m.m36MonthlyVol;
+  // perf panel
+  document.getElementById('perfTC').textContent=m.tradingCapital;
+  document.getElementById('perfLatest').textContent=fmtMoney(latest);
+  document.getElementById('perfAvg').textContent=fmtMoney(avgNoi);
+  document.getElementById('perfRR').textContent=fmtMoney(annualised);
+  document.getElementById('perfMaxLoss').textContent='−'+fmtMoney(Math.abs(Math.min(...s.noi))).replace('−','');
+  document.getElementById('perfMaxDD').textContent='−'+fmtMoney(mdd).replace('−','');
+  document.getElementById('perfSharpe').textContent=sharpe(s.noi).toFixed(2);
+  const firstPos=s.noi.findIndex(v=>v>0);
+  document.getElementById('perfBE').textContent=firstPos>=0?('M'+(firstPos+1)+' · '+MONTHS[firstPos]):'Not in window';
 
-  // performance panel (Trading & Risk)
-  document.getElementById('perfTC').textContent = m.tradingCapital;
-  document.getElementById('perfLatest').textContent = fmtMoney(latest);
-  document.getElementById('perfAvg').textContent = fmtMoney(avgNoi);
-  document.getElementById('perfRR').textContent = fmtMoney(annualised);
-  document.getElementById('perfMaxLoss').textContent = '−' + fmtMoney(Math.abs(Math.min(...s.noi)));
-  document.getElementById('perfMaxDD').textContent = '−' + fmtMoney(mdd);
-  document.getElementById('perfSharpe').textContent = sharpe(s.noi).toFixed(2);
-  const firstPos = s.noi.findIndex(v=>v>0);
-  document.getElementById('perfBE').textContent = firstPos>=0 ? ('M'+(firstPos+1)+' · '+MONTHS[firstPos]) : 'Not in window';
+  // P&L tab
+  const gmFy3=a.rev[2]?((a.rev[2]-a.tc[2])/a.rev[2]*100):0, nmFy3=a.rev[2]?(a.noi[2]/a.rev[2]*100):0;
+  document.getElementById('gmFy3').textContent=fmtPct(gmFy3);
+  document.getElementById('nmFy3').textContent=fmtPct(nmFy3);
+  document.getElementById('beMonth').textContent=firstPos>=0?('M'+(firstPos+1)):'—';
+  document.getElementById('mixNote').textContent=isTarget
+    ? 'Spread trading is the cashflow base; EV model streams (price-lag arb, sports model, computer vision) build the upside layer as execution and data capability mature.'
+    : 'Evergreen market-making only — single revenue line across the 36-month window.';
 
-  // P&L tab KPIs
-  const gmFy3 = a.rev[2] ? ((a.rev[2]-a.tc[2])/a.rev[2]*100) : 0;
-  const nmFy3 = a.rev[2] ? (a.noi[2]/a.rev[2]*100) : 0;
-  document.getElementById('gmFy3').textContent = fmtPct(gmFy3);
-  document.getElementById('nmFy3').textContent = fmtPct(nmFy3);
-  document.getElementById('beMonth').textContent = firstPos>=0 ? (firstPos+1) : '—';
-  document.getElementById('mixNote').textContent = activeScenario==='target'
-    ? 'Market making is the cashflow base; Tier 2 streams (price-lag arb, sports model, computer vision) build the upside layer as execution and data capability mature.'
-    : 'Single-strategy market making (Tier 1 only) with venue volume rebates layered in from month 5 as tiering activates.';
+  // waterfall
+  const wf=m.wf;
+  const ret=[wf.returnedY1||0, wf.returnedY2||0, wf.returnedY3||0];
+  const cumReturned=ret[0]+ret[1]+ret[2];
+  document.getElementById('wfInv').textContent=fmtMoney(m.raise);
+  document.getElementById('wfDist').textContent=fmtMoney(wf.totalDist);
+  document.getElementById('wfPref').textContent=fmtMoney(wf.prefHolders);
+  document.getElementById('wfRetD').textContent=fmtMoney(cumReturned)+' capital returned';
+  const ip=[wf.ipY1,wf.ipY2,wf.ipY3], pf=[wf.prefY1,wf.prefY2,wf.prefY3], ac=[wf.accruedY1,wf.accruedY2,wf.accruedY3];
+  // pref ending balance = accrued − returned (per year)
+  const en=[ac[0]-ret[0], ac[1]-ret[1], ac[2]-ret[2]];
+  const setWf=(attr,arr)=>{ const cells=document.querySelectorAll('#wfTbl td[data-wf-'+attr+']'); arr.forEach((v,i)=>{ if(!cells[i])return; cells[i].textContent=fmtMoney(v); }); };
+  setWf('ip',ip); setWf('pref',pf); setWf('acc',ac);
+  const retCells=document.querySelectorAll('#wfTbl td[data-wf-ret]'); [0,1,2].forEach(i=>{ if(ret[i]===0){retCells[i].textContent='—';retCells[i].classList.add('muted');} else {retCells[i].textContent='−'+fmtMoney(ret[i]);retCells[i].classList.remove('muted');} });
+  const endCells=document.querySelectorAll('#wfTbl td[data-wf-end]'); [0,1,2].forEach(i=>{ if(!endCells[i])return; endCells[i].textContent=fmtMoney(en[i]); endCells[i].classList.toggle('pos', Math.abs(en[i])<1); });
+  document.getElementById('wfScenLbl').textContent=isTarget?'Target case · operational years':'Base case · operational years';
+  document.getElementById('wfDistLbl').textContent=isTarget?'Target case':'Base case';
+  document.getElementById('wfTd').textContent=fmtMoney(wf.totalDist);
+  document.getElementById('wfCatch').textContent=fmtMoney(wf.catchup);
+  document.getElementById('wfGp').textContent=fmtMoney(wf.gpFounders);
+  document.getElementById('wfPref2').textContent=fmtMoney(wf.prefHolders);
+  document.getElementById('splitText').textContent='~'+m.founderPct.toFixed(0)+'% founders, ~'+m.safePct.toFixed(0)+'% preferred SAFE';
 
-  // waterfall + cap table KPIs
-  document.getElementById('wfInv').textContent = fmtMoney(m.raise);
-  if(activeScenario==='target'){
-    document.getElementById('wfDist').textContent = '$3.21M';
-    document.getElementById('wfProc').textContent = '$1.80M';
-    document.getElementById('wfMoM').textContent = 'Capital + pref + share = 1.8×';
-  } else {
-    document.getElementById('wfDist').textContent = '$1.16M';
-    document.getElementById('wfProc').textContent = '$1.40M';
-    document.getElementById('wfMoM').textContent = 'Capital + pref + share = 1.4×';
-  }
-  document.getElementById('splitText').textContent = '~'+m.founderPct.toFixed(0)+'% founders, ~'+m.safePct.toFixed(0)+'% preferred SAFE';
+  // payback = year cumulative capital returned first ≥ raise (from waterfall)
+  let payYr=-1, run=0;
+  for(let y=0;y<3;y++){ run+=ret[y]; if(run>=m.raise-1 && payYr===-1) payYr=y+1; }
+  const payLbl = payYr===-1 ? 'Beyond Y3' : ('Year '+payYr);
+  document.getElementById('perfPay').textContent=payLbl;
+
 
   // cap table
-  document.getElementById('capInv').textContent = '$' + m.raise.toLocaleString();
-  document.getElementById('capShares').textContent = m.safeShares.toLocaleString();
-  document.getElementById('capSafeShares').textContent = m.safeShares.toLocaleString();
-  document.getElementById('capFndPct').textContent = m.founderPct.toFixed(1)+'%';
-  document.getElementById('capSafePct').textContent = m.safePct.toFixed(1)+'%';
-  document.getElementById('capTotal').textContent = (1000000+m.safeShares).toLocaleString();
-  document.getElementById('capChartLbl').textContent = activeScenario==='target' ? 'Target case · $1.00M raise' : 'Base case · $1.00M raise';
+  document.getElementById('capInv').textContent='$'+m.raise.toLocaleString();
+  document.getElementById('capShares').textContent=m.safeShares.toLocaleString();
+  document.getElementById('capSafeShares').textContent=m.safeShares.toLocaleString();
+  document.getElementById('capFndPct').textContent=m.founderPct.toFixed(1)+'%';
+  document.getElementById('capSafePct').textContent=m.safePct.toFixed(1)+'%';
+  document.getElementById('capTotal').textContent=(1000000+m.safeShares).toLocaleString();
+  document.getElementById('capChartLbl').textContent=(isTarget?'Target':'Base')+' case · $1.00M raise';
 
-  // scenario-conditional panel visibility
-  document.querySelectorAll('[data-show-scenario]').forEach(el => {
-    el.classList.toggle('is-active', el.dataset.showScenario === activeScenario);
+  document.querySelectorAll('[data-show-scenario]').forEach(el=>el.classList.toggle('is-active',el.dataset.showScenario===activeScenario));
+  updateCharts(s,a);
+}
+
+function switchTab(id,btn){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active')); btn.classList.add('active');
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active');
+}
+function setScenario(name,btn){
+  document.querySelectorAll('.preset').forEach(p=>p.classList.remove('active')); btn.classList.add('active');
+  activeScenario=name; recompute();
+}
+/* ── Refresh: parse a pasted block by ROW LABEL ── */
+let refreshScen='target';
+// label -> scenario key. Multiple aliases per key so it works for both sheets.
+const ROW_MAP=[
+  {key:'spread', aliases:['spread trading','market making']},
+  {key:'pl',     aliases:['price-lag arb','price-lag','sharp book']},
+  {key:'sm',     aliases:['proprietary sports model','sports model alpha','sports model']},
+  {key:'cv',     aliases:['computer vision','player-level edge']},
+  {key:'fees',   aliases:['trading fees']},
+  {key:'adv',    aliases:['adverse selection']},
+  {key:'infra',  aliases:['infrastructure']},
+  {key:'pay',    aliases:['payroll']},
+  {key:'other',  aliases:['other expenses','other admin','office + misc']},
+];
+function parseNums(cells){
+  const out=[];
+  cells.forEach(c=>{
+    let t=String(c).replace(/[\$\s]/g,'').replace(/,/g,'').replace(/[−–—]/g,'-');
+    if(t===''||t==='-') return;
+    const v=parseFloat(t);
+    if(!isNaN(v)) out.push(v);
   });
-
-  updateCharts(s, a);
+  return out;
 }
+function applyPaste(){
+  const raw=document.getElementById('csvInput').value;
+  const status=document.getElementById('modalStatus');
+  if(!raw.trim()){ status.textContent='Paste the model rows first.'; status.className='modal-status err'; return; }
+  const lines=raw.split(/\r?\n/).filter(l=>l.trim()!=='');
+  const found={}; const target=SCENARIOS[refreshScen];
+  // build a fresh copy so a partial paste doesn't half-overwrite
+  const staged={};
+  lines.forEach(line=>{
+    const low=line.toLowerCase();
+    for(const {key,aliases} of ROW_MAP){
+      if(staged[key]) continue;
+      if(aliases.some(al=>low.includes(al))){
+        // split into cells, delimiter-aware so in-number commas ($1,395,000) survive:
+        // prefer tabs, then pipes, then 2+ spaces; only if none present, treat as CSV
+        // by first protecting in-number commas (digit,digit) then splitting on the rest.
+        let cells;
+        if(line.includes('\t'))      cells=line.split('\t');
+        else if(line.includes('|'))  cells=line.split(/\s*\|\s*/);
+        else if(/\s{2,}/.test(line)) cells=line.split(/\s{2,}/);
+        else cells=line.replace(/(\d),(?=\d{3}\b)/g,'$1').split(',');
+        cells=cells.map(s=>s.trim());
+        // drop the label cell(s): take everything after first non-numeric-leading token
+        const nums=parseNums(cells);
+        if(nums.length>=36){ staged[key]=nums.slice(0,36); found[key]=true; }
+        break;
+      }
+    }
+  });
+  const gotKeys=Object.keys(staged);
+  if(gotKeys.length===0){ status.textContent='No matching rows found. Check labels are included (Spread Trading, Trading Fees, Payroll, …).'; status.className='modal-status err'; return; }
+  // EV streams absent in a paste (e.g. base) => zero them
+  if(refreshScen==='base'){ ['pl','sm','cv'].forEach(k=>{ if(!staged[k]) staged[k]=new Array(36).fill(0); }); }
+  // apply staged rows
+  gotKeys.forEach(k=>{ target[k]=staged[k]; });
+  ['pl','sm','cv'].forEach(k=>{ if(staged[k]) target[k]=staged[k]; });
+  // advanced overrides
+  const advIds=['ipY1','ipY2','ipY3','returnedY1','returnedY2','returnedY3','totalDist','catchup','gpFounders','prefHolders'];
+  advIds.forEach(id=>{ const el=document.getElementById('adv_'+id); if(el&&el.value!=='') target.wf[id]=parseFloat(el.value); });
+  const safeEl=document.getElementById('adv_safeShares'); if(safeEl&&safeEl.value!=='') target.safeShares=parseFloat(safeEl.value);
+  const raiseEl=document.getElementById('adv_raise'); if(raiseEl&&raiseEl.value!=='') target.raise=parseFloat(raiseEl.value);
 
-/* ── Tabs / Scenario ── */
-function switchTab(id, btn){
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+  const missing=ROW_MAP.filter(r=>!staged[r.key]&&!(refreshScen==='base'&&['pl','sm','cv'].includes(r.key))).map(r=>r.key);
+  status.innerHTML='✓ Updated '+gotKeys.length+' rows for '+(refreshScen==='target'?'Target':'Base')+(missing.length?(' · kept existing: '+missing.join(', ')):' · complete');
+  status.className='modal-status ok';
+  if(activeScenario===refreshScen) recompute();
+  setTimeout(closeRefresh,1100);
 }
-function setScenario(name, btn){
-  document.querySelectorAll('.preset').forEach(p=>p.classList.remove('active'));
-  btn.classList.add('active');
-  activeScenario = name;
-  recompute();
-}
-
-/* ── Refresh modal ── */
-const REFRESH_STEPS_TARGET = [
-  {key:'mm',         label:'Market Making',                hint:'Full PnL → Market Making row'},
-  {key:'vr',         label:'Volume Rebates',               hint:'Full PnL → Volume Based Refunds row'},
-  {key:'pl',         label:'Price-Lag Arb',                hint:'Full PnL → Price-Lag Arb row'},
-  {key:'sm',         label:'Sports Model Alpha',           hint:'Full PnL → Proprietary Sports Model row'},
-  {key:'cv',         label:'Computer Vision',              hint:'Full PnL → Computer Vision row'},
-  {key:'fees',       label:'Trading Fees',                 hint:'Full PnL → Trading Fees row'},
-  {key:'adv',        label:'Adverse Selection',            hint:'Full PnL → Adverse Selection row'},
-  {key:'infra',      label:'Infrastructure',               hint:'Full PnL → Infrastructure row'},
-  {key:'payroll',    label:'Payroll',                      hint:'Full PnL → Payroll row'},
-  {key:'officeMisc', label:'Other Expenses',               hint:'Full PnL → Other Expenses row'},
-];
-const REFRESH_STEPS_BASE = [
-  {key:'mm',         label:'Market Making',                hint:'Financial Model → Market Making row'},
-  {key:'vr',         label:'Volume Rebates',               hint:'Financial Model → Volume Based Refunds row'},
-  {key:'fees',       label:'Trading Fees',                 hint:'Financial Model → Trading Fees row'},
-  {key:'adv',        label:'Adverse Selection',            hint:'Financial Model → Adverse Selection row'},
-  {key:'infra',      label:'Infrastructure',               hint:'Financial Model → Infrastructure row'},
-  {key:'payroll',    label:'Payroll',                      hint:'Financial Model → Payroll row'},
-  {key:'officeMisc', label:'Office + Misc combined',       hint:'Sum Office + Misc per month before pasting'},
-];
-let refreshScen = 'target';
-let refreshSteps = REFRESH_STEPS_TARGET;
-let refreshIdx = 0;
 
 function openRefresh(){
-  refreshScen = activeScenario;
-  refreshSteps = refreshScen==='target' ? REFRESH_STEPS_TARGET : REFRESH_STEPS_BASE;
-  refreshIdx = 0;
-  // sync radio state to active scenario
-  document.querySelectorAll('.scenario-picker label').forEach((l,i)=>{
-    l.classList.toggle('checked', (i===0 && refreshScen==='target') || (i===1 && refreshScen==='base'));
-  });
-  document.getElementById('csvInput').value = '';
-  document.getElementById('modalStatus').textContent = '';
-  document.getElementById('modalStatus').className = 'modal-status';
-  updateRefreshStep();
+  refreshScen=activeScenario;
+  document.querySelectorAll('.scenario-picker label').forEach((l,i)=>l.classList.toggle('checked',(i===0&&refreshScen==='target')||(i===1&&refreshScen==='base')));
+  document.querySelector('input[name=refscen]:nth-of-type(1)');
+  document.getElementById('csvInput').value='';
+  document.getElementById('modalStatus').textContent=''; document.getElementById('modalStatus').className='modal-status';
+  syncAdvFields();
+  document.getElementById('pasteHint').textContent=refreshScen==='target'?'Full PnL tab':'Financial Model tab';
   document.getElementById('refreshModal').classList.add('open');
 }
 function closeRefresh(){ document.getElementById('refreshModal').classList.remove('open'); }
-function pickScenario(name, el){
-  document.querySelectorAll('.scenario-picker label').forEach(l=>l.classList.remove('checked'));
-  el.classList.add('checked');
-  refreshScen = name;
-  refreshSteps = refreshScen==='target' ? REFRESH_STEPS_TARGET : REFRESH_STEPS_BASE;
-  refreshIdx = 0;
-  document.getElementById('csvInput').value = '';
-  document.getElementById('modalStatus').textContent = '';
-  document.getElementById('modalStatus').className = 'modal-status';
-  updateRefreshStep();
+function pickScenario(name,el){
+  document.querySelectorAll('.scenario-picker label').forEach(l=>l.classList.remove('checked')); el.classList.add('checked');
+  refreshScen=name; syncAdvFields();
+  document.getElementById('pasteHint').textContent=name==='target'?'Full PnL tab':'Financial Model tab';
 }
-function updateRefreshStep(){
-  const step = refreshSteps[refreshIdx];
-  document.getElementById('csvLabel').innerHTML = 'Step ' + (refreshIdx+1) + ' of ' + refreshSteps.length + ' — paste 36 monthly values · <code>' + step.label + '</code> <span style="color:var(--faint); font-weight:normal; text-transform:none; letter-spacing:0; font-size:0.78rem;">'+step.hint+'</span>';
-  document.getElementById('csvUpdateBtn').textContent = (refreshIdx === refreshSteps.length-1) ? 'Apply & finish' : 'Next →';
+function syncAdvFields(){
+  const wf=SCENARIOS[refreshScen].wf, m=SCENARIOS[refreshScen];
+  const set=(id,v)=>{ const e=document.getElementById(id); if(e)e.value=v; };
+  set('adv_ipY1',wf.ipY1); set('adv_ipY2',wf.ipY2); set('adv_ipY3',wf.ipY3);
+  set('adv_returnedY1',wf.returnedY1); set('adv_returnedY2',wf.returnedY2); set('adv_returnedY3',wf.returnedY3);
+  set('adv_totalDist',wf.totalDist); set('adv_catchup',wf.catchup); set('adv_gpFounders',wf.gpFounders); set('adv_prefHolders',wf.prefHolders);
+  set('adv_safeShares',m.safeShares); set('adv_raise',m.raise);
 }
-function parseCsvRow(text){
-  return text.trim().split(/[\t,\n\r]+/).map(s => {
-    s = s.replace(/[\$\s]/g,'').replace(/,/g,'');
-    const v = parseFloat(s);
-    return isNaN(v) ? null : v;
-  }).filter(v => v !== null);
-}
-function applyCsvRow(){
-  const txt = document.getElementById('csvInput').value;
-  const vals = parseCsvRow(txt);
-  const status = document.getElementById('modalStatus');
-  if(vals.length !== 36){
-    status.textContent = 'Found ' + vals.length + ' values · need exactly 36. Check the paste.';
-    status.className = 'modal-status err';
-    return;
-  }
-  const step = refreshSteps[refreshIdx];
-  SCENARIOS[refreshScen][step.key] = vals;
-  status.textContent = '✓ ' + step.label + ' updated (36 values).';
-  status.className = 'modal-status ok';
-  refreshIdx++;
-  if(refreshIdx >= refreshSteps.length){
-    recompute();
-    setTimeout(()=>{ closeRefresh(); }, 800);
-    return;
-  }
-  setTimeout(()=>{
-    document.getElementById('csvInput').value = '';
-    status.textContent = '';
-    status.className = 'modal-status';
-    updateRefreshStep();
-  }, 400);
+function toggleAdv(){
+  const p=document.getElementById('advPanel'), b=document.getElementById('advBtn');
+  const open=p.classList.toggle('open');
+  b.textContent=(open?'▾':'▸')+' Advanced: deal terms (waterfall & cap table)';
 }
 
 /* ── Init ── */
-buildCashChart();
-buildPnlChart();
-buildMixChart();
-buildCapChart();
-buildSparks();
+buildCashChart(); buildPnlChart(); buildMixChart(); buildCapChart(); buildSparks();
 recompute();
-document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeRefresh(); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeRefresh(); });
 </script>
 </body>
 </html>
